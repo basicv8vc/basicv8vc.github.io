@@ -109,7 +109,7 @@
     <link href="http://ljblog.org/2016/07/19/K-Means%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85/"/>
     <id>http://ljblog.org/2016/07/19/K-Means从入门到调包/</id>
     <published>2016-07-19T03:12:58.000Z</published>
-    <updated>2016-12-04T07:43:52.000Z</updated>
+    <updated>2016-12-09T03:51:26.000Z</updated>
     
     <content type="html"><![CDATA[<p>在做数据挖掘项目时，拿到数据，首先要分析问题和观察数据，我在“观察数据”这一阶段主要是看看有没有直观的数据规律以及异常点，对于那些特征维度较低的数据，比如仅仅2维，我选择画散点图观察，高纬度数据可以用t-SNE降维后再画图。除了可视化，聚类算法也是找到异常点的常用手段之一。</p>
 <p>这篇博客介绍一种最基本的聚类算法：K-Means。</p>
@@ -156,7 +156,7 @@
     <link href="http://ljblog.org/2016/07/08/Gradient-Boosting-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85-%E8%B0%83%E5%8C%85%E7%AF%87/"/>
     <id>http://ljblog.org/2016/07/08/Gradient-Boosting-从入门到调包-调包篇/</id>
     <published>2016-07-08T13:36:18.000Z</published>
-    <updated>2016-12-04T07:53:14.000Z</updated>
+    <updated>2016-12-09T03:52:33.000Z</updated>
     
     <content type="html"><![CDATA[<p>Gradient Boosting的开源实现很多，当然首选还是XGBoost。调包，就是学习API的过程，最好的学习资料就是官方文档以及demo。我这里把基本的调用罗列出来:</p>
 <p><a href="https://github.com/basicv8vc/Python-Machine-Learning-zh/blob/master/%E5%AE%9E%E8%B7%B5/xgboost%E8%B0%83%E5%8C%85/xgboost%E8%B0%83%E5%8C%85%E4%B9%8B%20%E5%9F%BA%E7%A1%80%E7%AF%87.ipynb" target="_blank" rel="external">xgboost调包之 基础篇.ipynb</a></p>
@@ -188,7 +188,7 @@
     <link href="http://ljblog.org/2016/07/08/Gradient-Boosting-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85-%E5%85%A5%E9%97%A8%E7%AF%87/"/>
     <id>http://ljblog.org/2016/07/08/Gradient-Boosting-从入门到调包-入门篇/</id>
     <published>2016-07-08T13:36:18.000Z</published>
-    <updated>2016-12-04T07:52:54.000Z</updated>
+    <updated>2016-12-09T03:50:56.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h1><p>虽然数据挖掘算法很多，但有过实际经验的同学肯定都知道，集成方法(ensembel method)大多数情况下都是首选。集成方法和LR、SVM算法不同，她不是一个具体的模型或算法，而是一类算法的统称。集成，从其字面意思也能看出，这家伙不是单兵作战，而是依靠团队取胜。简而言之，集成方法就是通过构建并结合多个学习器来完成学习任务。这句话有两个地方需要注意，“如何构建每一个学习器”以及“如何结合多个学习器而产生预测结果”。</p>
 <p>如果我们按照“如何构建每一个学习器”来将集成方法分类，总体可以分为两类：1) 个体学习器减存在强依赖关系、必须串行生成的序列化方法，代表方法是Boosting；2）个体学习器之间不存在强依赖关系、可同时生成的并行化方法，代表方法是Bagging。</p>
@@ -322,7 +322,7 @@
     <link href="http://ljblog.org/2015/09/14/Bayesian-Nets-Graph-Model-%E7%94%BB%E5%9B%BE%E5%B7%A5%E5%85%B7/"/>
     <id>http://ljblog.org/2015/09/14/Bayesian-Nets-Graph-Model-画图工具/</id>
     <published>2015-09-14T07:23:19.000Z</published>
-    <updated>2016-12-04T07:51:03.000Z</updated>
+    <updated>2016-12-09T03:52:40.000Z</updated>
     
     <content type="html"><![CDATA[<p>这几天在赶论文deadline，由于是第一次写论文，要学的真不少:(</p>
 <p>论文和LDA有关，肯定少不了要在tex中插入LDA图模型，用什么工具画图呢？</p>
