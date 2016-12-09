@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Yet Another Blog</title>
+  <subtitle>Something on Programming.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://ljblog.org/"/>
+  <updated>2016-12-09T03:20:42.000Z</updated>
+  <id>http://ljblog.org/</id>
+  
+  <author>
+    <name>lj</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用pdb调试Python代码</title>
+    <link href="http://ljblog.org/2016/12/08/%E4%BD%BF%E7%94%A8pdb%E8%B0%83%E8%AF%95Pyton%E4%BB%A3%E7%A0%81/"/>
+    <id>http://ljblog.org/2016/12/08/使用pdb调试Pyton代码/</id>
+    <published>2016-12-08T12:20:16.000Z</published>
+    <updated>2016-12-09T03:20:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一直使用PyCharm写Python，最近需要在服务器调试项目代码，Google了Python内置模块<a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="external">pdb</a>的基本用法，这里记录一下。</p>
+<p>假设项目代码是：</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># <span class="meta">code</span>.py</div><div class="line"></div><div class="line">a = <span class="string">"aaa"</span></div><div class="line"><span class="keyword">b </span>= <span class="string">"bbb"</span></div><div class="line">c = <span class="string">"ccc"</span></div><div class="line"></div><div class="line"><span class="symbol">def</span> combine(<span class="built_in">s1</span>, <span class="built_in">s2</span>):</div><div class="line">    <span class="built_in">s3</span> = <span class="built_in">s1</span> + <span class="built_in">s2</span> + <span class="built_in">s1</span></div><div class="line">    <span class="built_in">s4</span> = <span class="built_in">s3</span> * <span class="number">2</span></div><div class="line">    return <span class="built_in">s4</span></div><div class="line"></div><div class="line">d = combine(a, <span class="keyword">b)</span></div><div class="line"><span class="symbol">final</span> = a + <span class="keyword">b </span>+ c + d</div><div class="line"><span class="symbol">print</span> final</div></pre></td></tr></table></figure>
+<h2 id="开启pdb"><a href="#开启pdb" class="headerlink" title="开启pdb"></a>开启pdb</h2><p>在Python代码中使用pdb有两种方式：</p>
+<ul>
+<li>源文件中导入pdb模块，在需要设置断点(breakpoint)的地方添加语句:pdb.set_trace()，然后在系统终端执行 <code>$ python code.py</code></li>
+<li>在系统终端执行 <code>$ python -m pdb code.py</code>, 然后再使用pdb创建断点命令设置断点。</li>
+</ul>
+<p>我个人更推荐第二种方式，原因是不需要修改源代码。</p>
+<h2 id="pdb命令"><a href="#pdb命令" class="headerlink" title="pdb命令"></a>pdb命令</h2><p>在终端执行, <code>$ python -m pdb code.py</code></p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-0@2x.png" alt=""></p>
+<p>进入调试模式，首先看到<code>-&gt; a = &quot;aaa&quot;</code>，它的意思是接下来要执行的语句是<code>a = &quot;aaa&quot;</code>。</p>
+<p>在光标处可以输入各种pdb命令，我们要学习的第一条命令是<strong>help</strong>。</p>
+<h3 id="help"><a href="#help" class="headerlink" title="help"></a>help</h3><p><strong>help</strong>的作用是显示pdb所有的命令，输入<code>help</code>，然后按下<code>回车键</code>，</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-1@2x.png" alt=""></p>
+<p>如果要学习每一条命令的作用，可以输入<code>help command</code>, 比如我们看一下<strong>n</strong>是干嘛的，输入<code>help n</code>，然后按下<code>回车键</code>。</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-2@2x.png" alt=""></p>
+<h3 id="n-ext"><a href="#n-ext" class="headerlink" title="n(ext)"></a>n(ext)</h3><p><strong>n</strong>就是大名鼎鼎的单步调试命令(<strong>next</strong>)，作用是每次执行一条语句。接下来，我们就用<strong>n</strong>命令来看看代码的执行过程吧，不断输入<code>n 回车</code>：</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-3@2x.png" alt=""></p>
+<p>很多时候我们会输入大量重复的命令，比如单步调试的<strong>n</strong>命令，每次都要输入<code>n</code>，再按下<code>回车键</code>，效率很低。接下来要告诉大家的技巧，重要性不亚于一条常用的命令。</p>
+<p><strong>不输入命令，只按<code>回车键</code>，默认执行的是上一条命令。</strong></p>
+<h3 id="s-tep"><a href="#s-tep" class="headerlink" title="s(tep)"></a>s(tep)</h3><p>和<strong>n</strong>作用类似的命令是<strong>s</strong>，它也是进行单步调试，二者的区别是，如果语句包含对函数的调用，<strong>s</strong>(step into)会进入函数内部，而<strong>n</strong>(next)则把函数调用看做一条语句。</p>
+<p>比如接下来要执行的语句是code.py中的<code>d = combine(a, b)</code>，比较输入<strong>n</strong>和<strong>s</strong>的区别：</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-4@2x.png" alt=""></p>
+<h3 id="r-eturn"><a href="#r-eturn" class="headerlink" title="r(eturn)"></a>r(eturn)</h3><p>如果一个函数很长，而我们只关心函数内部的前几条语句的执行状况，如何早点退出函数的执行呢？<strong>r</strong>命令就是我们要的答案，它的作用是一次性执行到函数结束。</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-5@2x.png" alt=""></p>
+<h3 id="b-reakpoint"><a href="#b-reakpoint" class="headerlink" title="b(reakpoint)"></a>b(reakpoint)</h3><p>调试程序，离不开断点的设置，pdb设置断点的命令是<strong>b</strong>。如果我们想在代码的第5行前插入断点，只需要输入<code>b 5</code>:</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-6@2x.png" alt=""></p>
+<p>如果想查看所有的断点，直接输入<code>b</code>即可，</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-10@2x.png" alt=""></p>
+<h3 id="c-ontinue"><a href="#c-ontinue" class="headerlink" title="c(ontinue)"></a>c(ontinue)</h3><p>调试程序时，往往会设置多个断点，如何快速执行到下一个断点处？本方法是不断输入<strong>n</strong>，另一种方法是使用<strong>c</strong>(continue)命令，它的作用是一次性执行到下一个断点处，如果没有其他断点，则会执行到程序结束。我们设置两个断点，看一下效果：</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-7@2x.png" alt=""></p>
+<h3 id="c-lear"><a href="#c-lear" class="headerlink" title="c(lear)"></a>c(lear)</h3><p>命令<strong>c</strong>用于清除断点，用法是<code>clear 断点</code></p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-11@2x.png" alt=""></p>
+<h3 id="p-rint"><a href="#p-rint" class="headerlink" title="p(rint)"></a>p(rint)</h3><p><strong>p</strong>命令用于打印变量的当前值，可以一次打印多个变量的值，用逗号隔开即可:</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-8@2x.png" alt=""></p>
+<h3 id="l-ist"><a href="#l-ist" class="headerlink" title="l(ist)"></a>l(ist)</h3><p>一个源代码文件可以成百上千行，由于pdb模式每次只显示一行代码，如果对代码不熟悉，可能调试几分钟后就迷糊了，不妨使用<strong>l</strong>(ist)命令打印出周围的代码看看，<strong>l</strong>默认打印出临近的11行代码，我们也可以通过<code>list begin, end</code>来选择打印[begin, end]行数区间内的代码:</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-9@2x.png" alt=""></p>
+<h3 id="a-rgs"><a href="#a-rgs" class="headerlink" title="a(rgs)"></a>a(rgs)</h3><p>如果执行<strong>s</strong>进入某个函数，我们想要查看此函数形参的值，除了使用<strong>p</strong>命令，还可以使用<strong>a</strong>命令，输出所有参数的值：</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-12@2x.png" alt=""></p>
+<h3 id="插入语句"><a href="#插入语句" class="headerlink" title="插入语句"></a>插入语句</h3><p>如果我们确定了出现bug的原因是某个变量的赋值出现问题，能不能在调试模式下将此变量的值重新赋值，然后执行程序呢？这是可以的！</p>
+<p>pdb的一大优点就是你可以插入语句！化调试模式为编辑模式，好神奇。看一个例子，我们将变量a重新赋值：</p>
+<p><img src="http://odw1x7kgr.bkt.clouddn.com/QQ20161208-13@2x.png" alt=""></p>
+<p>注意语句前面的感叹号”!”，如果没有这个感叹号，pdb会以为输入的命令是<strong>b</strong>，然后发现不符合<strong>b</strong>命令的用法，报错。</p>
+<h3 id="locals-和globals"><a href="#locals-和globals" class="headerlink" title="locals()和globals()"></a>locals()和globals()</h3><p>如果要追踪多个变量的值，除了经常<strong>p</strong>，还可以调用Python内置函数<strong>locals()</strong>和<strong>globals()</strong>。因为pdb模式可以插入任何的Python语句，当然也可以调用Python的内置函数了。</p>
+<h3 id="q-uit"><a href="#q-uit" class="headerlink" title="q(uit)"></a>q(uit)</h3><p>如果我们已经找到程序bug的原因，如何退出调试模式呢？方法是使用<strong>q</strong>命令。</p>
+<p>pdb是Python内置的调试模块，优点是简单，功能基本完善。不过网上很多人都推荐pbd的加强版<strong><a href="https://pypi.python.org/pypi/ipdb" target="_blank" rel="external">ipdb</a></strong>或<strong><a href="https://pypi.python.org/pypi/pudb" target="_blank" rel="external">pudb</a></strong>，我两个都试了一下，发现<strong>ipdb</strong>更顺手，嗯，暂时就使用<strong>ipdb</strong>啦。</p>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><ul>
+<li><a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="external">pdb — The Python Debugger</a></li>
+<li><a href="https://pythonconquerstheuniverse.wordpress.com/2009/09/10/debugging-in-python/" target="_blank" rel="external">Debugging in Python</a></li>
+<li><a href="http://stackoverflow.com/questions/21961693/how-to-print-all-variables-values-when-debugging-python-with-pdb-without-specif" target="_blank" rel="external">How to print all variables values when debugging Python with pdb, without specifying each variable?</a></li>
+<li><a href="https://howchoo.com/g/zgi2y2iwyze/debugging-your-python-code" target="_blank" rel="external">Debugging your Python code</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一直使用PyCharm写Python，最近需要在服务器调试项目代码，Google了Python内置模块&lt;a href=&quot;https://docs.python.org/2/library/pdb.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;pd
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://ljblog.org/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java内存模型</title>
+    <link href="http://ljblog.org/2016/12/04/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
+    <id>http://ljblog.org/2016/12/04/Java内存模型/</id>
+    <published>2016-12-04T08:25:35.000Z</published>
+    <updated>2016-12-04T14:11:37.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://ljblog.org/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>K-Means从入门到调包</title>
+    <link href="http://ljblog.org/2016/07/19/K-Means%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85/"/>
+    <id>http://ljblog.org/2016/07/19/K-Means从入门到调包/</id>
+    <published>2016-07-19T03:12:58.000Z</published>
+    <updated>2016-12-04T07:43:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在做数据挖掘项目时，拿到数据，首先要分析问题和观察数据，我在“观察数据”这一阶段主要是看看有没有直观的数据规律以及异常点，对于那些特征维度较低的数据，比如仅仅2维，我选择画散点图观察，高纬度数据可以用t-SNE降维后再画图。除了可视化，聚类算法也是找到异常点的常用手段之一。</p>
+<p>这篇博客介绍一种最基本的聚类算法：K-Means。</p>
+<h2 id="算法描述与EM"><a href="#算法描述与EM" class="headerlink" title="算法描述与EM"></a>算法描述与EM</h2><p>聚类算法的作用是将数据集自动划分为多个不同的集合。 K-Means算法是典型的无监督算法，对于数据集$D$, 我们设定参数k(k个集合)，她就能自动地学习出k个类别，简单又神奇。那么K-Means是如何学习到这k个集合呢？专业一点说就是，K-Means的目标函数是啥？如何优化她的目标函数？先回答第一个问题，下面就是K-Means的目标函数：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/18/578d9ed1157e4.png" alt=""></p>
+<p>物理意义：我们希望找到的k个集合，每个集合内的点都距离此集合内平均值点最近(每个集合中的点都紧密团结在一起)。</p>
+<p>知道了目标函数，下一步就要考虑如何求解，最常见的求解方法是Lloyd算法，也就是使用EM算法，注意，Lloyd算法得到的结果是局部极小值而不是全局最小值哦。</p>
+<p>EM算法求解步骤很简单，总共分三步：</p>
+<ul>
+<li>将所有数据点都分配到某个集合 -&gt; 计算每个点到集合平均值点的欧氏距离</li>
+<li>计算每个集合内点的平均值 -&gt; 计算每个特征的平均值</li>
+<li>重复上面两步直到局部收敛 -&gt; 前后两次迭代的集合结果相同</li>
+</ul>
+<p>上面的三步概括起来就是 E-&gt;M-&gt;E-&gt;M-&gt;………..</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">import numpy as np</div><div class="line">from collections import defaultdict</div><div class="line">from random import uniform</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">KMeans</span>(<span class="title">object</span>):</span></div><div class="line">    <span class="string">""</span><span class="string">"</span></div><div class="line">    kmeans 聚类算算</div><div class="line">    "<span class="string">""</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span>:</div><div class="line">        pass</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cluster</span><span class="params">(<span class="keyword">self</span>, X, k, initializer=<span class="string">"random"</span>)</span></span>:</div><div class="line">        <span class="keyword">self</span>.X = X</div><div class="line">        <span class="keyword">self</span>.k = k</div><div class="line">        <span class="keyword">self</span>.centers = defaultdict(list)</div><div class="line">        <span class="keyword">self</span>.assignment = np.zeros(<span class="keyword">self</span>.X.shape[<span class="number">0</span>]) <span class="comment">#记录每个样本属于哪个中心点</span></div><div class="line">        <span class="keyword">if</span> initializer == <span class="string">"random"</span>:</div><div class="line">            <span class="keyword">self</span>._initialize() <span class="comment">#初始化得到k个点</span></div><div class="line">        elif initializer == <span class="string">"kmeans++"</span>:</div><div class="line">            <span class="keyword">self</span>._carefulSeed()</div><div class="line">        <span class="symbol">else:</span></div><div class="line">            raise ValueError(<span class="string">'initializer error!'</span>)</div><div class="line">        <span class="keyword">self</span>._assign() <span class="comment">#将数据集中每个样本分配给最近的中心点</span></div><div class="line">        <span class="keyword">self</span>.next_centers = None</div><div class="line">        <span class="keyword">while</span> <span class="keyword">self</span>.centers != <span class="keyword">self</span>.<span class="symbol">next_centers:</span></div><div class="line">            <span class="keyword">self</span>.next_centers = <span class="keyword">self</span>.centers</div><div class="line">            <span class="keyword">self</span>._getcenters()</div><div class="line">            <span class="keyword">self</span>._assign()</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.assignment</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_carefulSeed</span><span class="params">(<span class="keyword">self</span>)</span></span>:</div><div class="line">        <span class="string">""</span><span class="string">"</span></div><div class="line">        kmeans++</div><div class="line">        1、从输入的数据点集合（要求有k个聚类）中随机选择一个点作为第一个聚类中心</div><div class="line">        2、对于数据集中的每一个点x，计算它与最近聚类中心(指已选择的聚类中心)的距离D(x)</div><div class="line">        3、选择一个新的数据点作为新的聚类中心，选择的原则是：D(x)较大的点，被选取作为聚类中心的概率较大</div><div class="line">        4、重复2和3直到k个聚类中心被选出来</div><div class="line">        "<span class="string">""</span></div><div class="line">        from random import randint</div><div class="line">        index = randint(<span class="number">0</span>, <span class="keyword">self</span>.X.shape[<span class="number">0</span>]-<span class="number">1</span>)</div><div class="line">        <span class="keyword">self</span>.centers[<span class="number">0</span>] = <span class="keyword">self</span>.X[index]</div><div class="line">        indexs = &#123;<span class="symbol">index:</span><span class="number">1</span>&#125; <span class="comment">#记录中心点是X中的第几个点(index), 以避免选择相同的点作为类中心</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="keyword">self</span>.k)[<span class="number">1</span><span class="symbol">:</span>]:</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_initialize</span><span class="params">(<span class="keyword">self</span>)</span></span>:</div><div class="line">        <span class="string">""</span><span class="string">"</span></div><div class="line">        初始化，即初始化k个中心点和每个样本属于哪个中心点</div><div class="line">        这k个样本点是随机产生的</div><div class="line">        "<span class="string">""</span></div><div class="line">        feature_min_max = defaultdict(list) <span class="comment">#保存每个特征值的最小值和最大值</span></div><div class="line">        feature_dimensions = <span class="keyword">self</span>.X.shape[<span class="number">1</span>]</div><div class="line">        get_min_max = lambda x, <span class="symbol">y:</span> (x,y) <span class="keyword">if</span> x&lt;y <span class="keyword">else</span> (y,x)</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(feature_dimensions):</div><div class="line">            i_min, i_max = get_min_max(<span class="keyword">self</span>.X[<span class="number">0</span>][i], <span class="keyword">self</span>.X[<span class="number">1</span>][i])</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="keyword">self</span>.X.shape[<span class="number">0</span>])[<span class="number">2</span><span class="symbol">:-</span><span class="number">1</span><span class="symbol">:</span><span class="number">2</span>]:</div><div class="line">                tmp_min, tmp_max = get_min_max(<span class="keyword">self</span>.X[j][i], <span class="keyword">self</span>.X[j+<span class="number">1</span>][i])<span class="comment">#self.X[j+1][i], self.X[j][i] if self.X[j][i] &gt; self.X[j+1][i] else self.X[j][i], self.X[j+1][i]</span></div><div class="line">                <span class="keyword">if</span> tmp_min &lt; <span class="symbol">i_min:</span></div><div class="line">                    i_min = tmp_min</div><div class="line">                <span class="keyword">if</span> tmp_max &gt; <span class="symbol">i_max:</span></div><div class="line">                    i_max = tmp_max</div><div class="line">            tmp_min, tmp_max = get_min_max(<span class="keyword">self</span>.X[-<span class="number">1</span>][i], <span class="keyword">self</span>.X[-<span class="number">2</span>][i])<span class="comment">#self.X[-1][i], self.X[-2][i] if self.X[-2][i] &gt; self.X[-1][i] else self.X[-2][i], self.X[-1][i]</span></div><div class="line">            i_min = tmp_min <span class="keyword">if</span> tmp_min &lt; i_min <span class="keyword">else</span> i_min</div><div class="line">            i_max = tmp_max <span class="keyword">if</span> tmp_max &gt; i_max <span class="keyword">else</span> i_max</div><div class="line">            feature_min_max[i] = [i_min, i_max]</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="keyword">self</span>.k):</div><div class="line">            this_k = []</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> xrange(feature_dimensions):</div><div class="line">                value = uniform(feature_min_max[j][<span class="number">0</span>], feature_min_max[j][<span class="number">1</span>])</div><div class="line">                this_k.append(value)</div><div class="line">            <span class="keyword">self</span>.centers[i] = this_k</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_distance</span><span class="params">(<span class="keyword">self</span>, point1, point2)</span></span>:</div><div class="line">        <span class="string">""</span><span class="string">"</span></div><div class="line">        计算点point1 和 point2 之间的欧氏距离</div><div class="line">        "<span class="string">""</span></div><div class="line">        dd = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(point1)):</div><div class="line">            dd += (point1[i] - point2[i]) ** <span class="number">2</span></div><div class="line">        <span class="keyword">return</span> np.sqrt(dd)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_assign</span><span class="params">(<span class="keyword">self</span>)</span></span>:</div><div class="line"></div><div class="line">        feature_dimensions = <span class="keyword">self</span>.X.shape[<span class="number">1</span>]</div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="keyword">self</span>.X.shape[<span class="number">0</span>]):</div><div class="line">            min_distance = float(<span class="string">"inf"</span>)</div><div class="line">            current_assignment = <span class="keyword">self</span>.k</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> xrange(<span class="keyword">self</span>.k):</div><div class="line">                tmp_d = <span class="keyword">self</span>._distance(<span class="keyword">self</span>.X[i], <span class="keyword">self</span>.centers[j])</div><div class="line">                <span class="keyword">if</span> tmp_d &lt; <span class="symbol">min_distance:</span></div><div class="line">                    min_distance = tmp_d</div><div class="line">                    current_assignment = j</div><div class="line">            <span class="keyword">self</span>.assignment[i] = current_assignment</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_getcenters</span><span class="params">(<span class="keyword">self</span>)</span></span>:</div><div class="line">        <span class="string">""</span><span class="string">"</span></div><div class="line">        计算每个中心点的平均值，作为新的中心点</div><div class="line">        "<span class="string">""</span></div><div class="line">        cluster_numbers = defaultdict(int) <span class="comment">#记录每个分类的样本数目</span></div><div class="line">        cluster_sum = np.zeros((<span class="keyword">self</span>.k, len(<span class="keyword">self</span>.X[<span class="number">0</span>]))) <span class="comment">#记录每个分类的所有样本相加之和</span></div><div class="line">        <span class="keyword">for</span> index, center <span class="keyword">in</span> enumerate(<span class="keyword">self</span>.assignment):</div><div class="line">            cluster_numbers[center] = cluster_numbers.get(center, <span class="number">0</span>) + <span class="number">1</span></div><div class="line">            cluster_sum[center] += <span class="keyword">self</span>.X[index]</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="keyword">self</span>.k):</div><div class="line">            <span class="keyword">self</span>.centers[i] = list(cluster_sum[i]/float(cluster_numbers[i]))</div></pre></td></tr></table></figure>
+<!-- ## 初始化
+
+使用 kmeans++初始化
+
+
+## 梯度下降求解
+
+使用EM算法求解k-means的时间复杂度是O() -->
+<h2 id="调包篇"><a href="#调包篇" class="headerlink" title="调包篇"></a>调包篇</h2><p>还是以调用sklearn为例，sklearn.cluster.KMeans对应于k-means算法，此外还有sklearn.cluster.MiniBatchKMeans, 顾名思义，就是使用批梯度下降算法优化目标函数，收敛速度会比KMeans快一点，但是结果可能要稍差。</p>
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" target="_blank" rel="external">KMeans</a></p>
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.MiniBatchKMeans.html#sklearn.cluster.MiniBatchKMeans" target="_blank" rel="external">MiniBatchKMeans</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在做数据挖掘项目时，拿到数据，首先要分析问题和观察数据，我在“观察数据”这一阶段主要是看看有没有直观的数据规律以及异常点，对于那些特征维度较低的数据，比如仅仅2维，我选择画散点图观察，高纬度数据可以用t-SNE降维后再画图。除了可视化，聚类算法也是找到异常点的常用手段之一。
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://ljblog.org/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="聚类" scheme="http://ljblog.org/tags/%E8%81%9A%E7%B1%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gradient Boosting 从入门到调包 (调包篇)</title>
+    <link href="http://ljblog.org/2016/07/08/Gradient-Boosting-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85-%E8%B0%83%E5%8C%85%E7%AF%87/"/>
+    <id>http://ljblog.org/2016/07/08/Gradient-Boosting-从入门到调包-调包篇/</id>
+    <published>2016-07-08T13:36:18.000Z</published>
+    <updated>2016-12-04T07:53:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Gradient Boosting的开源实现很多，当然首选还是XGBoost。调包，就是学习API的过程，最好的学习资料就是官方文档以及demo。我这里把基本的调用罗列出来:</p>
+<p><a href="https://github.com/basicv8vc/Python-Machine-Learning-zh/blob/master/%E5%AE%9E%E8%B7%B5/xgboost%E8%B0%83%E5%8C%85/xgboost%E8%B0%83%E5%8C%85%E4%B9%8B%20%E5%9F%BA%E7%A1%80%E7%AF%87.ipynb" target="_blank" rel="external">xgboost调包之 基础篇.ipynb</a></p>
+<p><a href="https://github.com/basicv8vc/Python-Machine-Learning-zh/blob/master/%E5%AE%9E%E8%B7%B5/xgboost%E8%B0%83%E5%8C%85/xgboost%E8%B0%83%E5%8C%85%E4%B9%8B%20%E6%A8%A1%E5%9E%8B%E7%AF%87.ipynb" target="_blank" rel="external">xgboost调包之 模型篇.ipynb</a></p>
+<p><a href="https://github.com/basicv8vc/Python-Machine-Learning-zh/blob/master/%E5%AE%9E%E8%B7%B5/xgboost%E8%B0%83%E5%8C%85/xgboost%E8%B0%83%E5%8C%85%E4%B9%8B%20sklearn%E6%8E%A5%E5%8F%A3.ipynb" target="_blank" rel="external">xgboost调包之 sklearn接口.ipynb</a></p>
+<p><a href="https://github.com/basicv8vc/Python-Machine-Learning-zh/blob/master/%E5%AE%9E%E8%B7%B5/xgboost%E8%B0%83%E5%8C%85/xgboost%E8%B0%83%E5%8C%85%E4%B9%8B%20%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E5%8F%AF%E8%A7%86%E5%8C%96.ipynb" target="_blank" rel="external">xgboost调包之 特征重要性可视化.ipynb</a></p>
+<p><a href="https://github.com/basicv8vc/Python-Machine-Learning-zh/blob/master/%E5%AE%9E%E8%B7%B5/xgboost%E8%B0%83%E5%8C%85/xgboost%E8%B0%83%E5%8C%85%E4%B9%8B%20early%20stopping.ipynb" target="_blank" rel="external">xgboost调包之 early stopping.ipynb</a></p>
+<p><a href="https://github.com/basicv8vc/Python-Machine-Learning-zh/blob/master/%E5%AE%9E%E8%B7%B5/xgboost%E8%B0%83%E5%8C%85/xgboost%E8%B0%83%E5%8C%85%E4%B9%8B%20%E7%BB%93%E5%90%88pandas.ipynb" target="_blank" rel="external">xgboost调包之 结合pandas.ipynb</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Gradient Boosting的开源实现很多，当然首选还是XGBoost。调包，就是学习API的过程，最好的学习资料就是官方文档以及demo。我这里把基本的调用罗列出来:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/basicv8vc/Pyth
+    
+    </summary>
+    
+      <category term="math" scheme="http://ljblog.org/categories/math/"/>
+    
+    
+      <category term="机器学习" scheme="http://ljblog.org/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Gradient Boosting" scheme="http://ljblog.org/tags/Gradient-Boosting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gradient Boosting 从入门到调包 (入门篇)</title>
+    <link href="http://ljblog.org/2016/07/08/Gradient-Boosting-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85-%E5%85%A5%E9%97%A8%E7%AF%87/"/>
+    <id>http://ljblog.org/2016/07/08/Gradient-Boosting-从入门到调包-入门篇/</id>
+    <published>2016-07-08T13:36:18.000Z</published>
+    <updated>2016-12-04T07:52:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h1><p>虽然数据挖掘算法很多，但有过实际经验的同学肯定都知道，集成方法(ensembel method)大多数情况下都是首选。集成方法和LR、SVM算法不同，她不是一个具体的模型或算法，而是一类算法的统称。集成，从其字面意思也能看出，这家伙不是单兵作战，而是依靠团队取胜。简而言之，集成方法就是通过构建并结合多个学习器来完成学习任务。这句话有两个地方需要注意，“如何构建每一个学习器”以及“如何结合多个学习器而产生预测结果”。</p>
+<p>如果我们按照“如何构建每一个学习器”来将集成方法分类，总体可以分为两类：1) 个体学习器减存在强依赖关系、必须串行生成的序列化方法，代表方法是Boosting；2）个体学习器之间不存在强依赖关系、可同时生成的并行化方法，代表方法是Bagging。</p>
+<p>本文要讲到的Gradient Boosting就属于Boosting方法。</p>
+<p>由于Gradient Boosting涉及到的知识实在是很多，完全可以写成类似”Understanding Random Forest: From Theory to Practice”的博士论文，由于水平和时间的限制，本文不会涉及过多、过深的细节，而是尽量用通俗的自然语言和数学语言来解释我对Gradient Boosting的浅显理解，仅仅是入门水平:)</p>
+<h1 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h1><p>既然要讲Gradient Boosting，那么决策树肯定是绕不开的，虽然Boosting方法对”个体学习器”没有要求，你可以选择LR、SVM、决策树等等。但是大多数情况下我们默认都选择决策树作为个体学习器。下面简单解释决策树算法。</p>
+<p>决策树，顾名思义，根据树结构来进行决策。这种思想是很质朴的，和我们人类做决策时的思考过程很像，比如明天出门要不要带伞啊？如果我根据天气情况来做出决定，可以记作：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> 明天下雨：</div><div class="line">    出门带伞</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    出门不带伞</div></pre></td></tr></table></figure>
+<p>看到没有，决策过程可以用if, else来具体化，难怪有人说，决策树就是一堆if else而已。数据挖掘比赛中很多人会首先用简单的规则跑出一个结果，这实际上就是在人工构造决策树啊。</p>
+<p>既然决策树是一种机器学习方法，我们就想知道她的学习过程是怎么样的，也就是给定训练集如果构建一颗决策树呢？通常，决策树的构建是一个递归过程:</p>
+<ul>
+<li>1 输入训练集D，特征集F</li>
+<li>2 如果D中样本全属于同一个类别C，将当前节点标记为C类叶节点，返回</li>
+<li>3 从F中选择最优划分特征f</li>
+<li>4 对于f的每一个值$f_i$, 都生成一个子节点，然后对D进行划分，f值相同的样本都放到同一个子节点，并对节点进行标记，然后对于每一个新产生的子节点，进行第1步</li>
+</ul>
+<p>注意：实际上对于决策树，大多数的实现方法都是基于二叉树，比如sklearn。</p>
+<h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><p>决策树算法的关键是上面的第3步，即如何选择最优划分特征。如何评价一个特征是不是优秀呢？基本的原则就是看按照某一个特征生成子节点后，子节点的样本是不是都尽可能属于同一个类别，也就是子节点的纯度越高，我们就认为这个特征”好”。</p>
+<p>为了量化子节点的纯度，前人提出了很多具体的评价方法，包括信息增益、信息增益率和基尼指数。这些评价方法大同小异，我们就以最常见的信息增益(Information Gain)为例进行解释：</p>
+<p>假设当前节点包含的数据集为D，则数据集的熵(entropy)定义为：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/5780a565a3f03.png" alt=""></p>
+<p>其中$|Y|$表示类别值的取值个数。</p>
+<p>假设某一个特征$f$有V个可能的取值 $f^{1},f^{2},…,f^{V}$,  若使用特征$f$对$D$进行划分，会产生$V$个子节点，其中第$v$个子节点包含了$D$中所有$f$取值为$f^{v}$, 记作$D^{v}$. 按照下式计算用$f$对$D$进行划分获得的信息增益(information gain):</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/5780a9c255d9a.png" alt=""></p>
+<p>信息增益越大，我们就认为用$f$划分所获得的纯度提升越大。</p>
+<p>下面是用信息增益来构建决策树的简单Python代码，注意，构建的是二叉树。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">uniqueCounts</span><span class="params">(X)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    对y的取值进行计数, 用于计算节点的purity</div><div class="line">    rvalue: 计数结果</div><div class="line">    """</div><div class="line">    results = &#123;&#125;</div><div class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> X:</div><div class="line">        y = X[<span class="number">-1</span>]</div><div class="line">        results[y] = results.get(y, <span class="number">0</span>) + <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> results</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">entropy</span><span class="params">(X)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    计算熵</div><div class="line">    """</div><div class="line">    <span class="keyword">from</span> math <span class="keyword">import</span> log</div><div class="line">    log2 = <span class="keyword">lambda</span> x: log(x)/log(<span class="number">2</span>)</div><div class="line">    results = uniqueCounts(X)</div><div class="line"></div><div class="line">    entropy = <span class="number">0.0</span></div><div class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> results:</div><div class="line">        p = float(results[y])/len(X)</div><div class="line">        entropy = entropy - p*log2(p)</div><div class="line">    <span class="keyword">return</span> entropy</div><div class="line"></div><div class="line"><span class="comment"># 定义节点</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DecisionTreeNode</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, col=<span class="number">-1</span>, value=None, results=None, tb=None, fb=None)</span>:</span></div><div class="line">        self.col = col <span class="comment">#</span></div><div class="line">        self.value = value</div><div class="line">        self.resuls = results</div><div class="line">        self.tb = tb</div><div class="line">        self.fb = fb</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">import</span> numbers</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">divideSet</span><span class="params">(X, column, value)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    用某个特征对数据集进行分割, 分为两个数据集，二叉树</div><div class="line">    """</div><div class="line">    split_function = <span class="keyword">None</span></div><div class="line">    <span class="keyword">if</span> isinstance(value, (numbers.Integral, np.int)) <span class="keyword">or</span> isinstance(value, (numbers.Real, np.float)):</div><div class="line">        split_function = <span class="keyword">lambda</span> row: row[column] &gt;= value</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        split_function = <span class="keyword">lambda</span> row: row[column] == value</div><div class="line"></div><div class="line">    <span class="comment"># 将数据集分为两个集合，并返回</span></div><div class="line">    set1 = [row <span class="keyword">for</span> row <span class="keyword">in</span> X <span class="keyword">if</span> split_function(row)]</div><div class="line">    set2 = [row <span class="keyword">for</span> row <span class="keyword">in</span> X <span class="keyword">if</span> <span class="keyword">not</span> split_function(row)]</div><div class="line">    <span class="keyword">return</span> (set1, set2)</div><div class="line"></div><div class="line">    <span class="comment">#</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">buildTree</span><span class="params">(X, scoref=entropy)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    以递归方式构建树， 使用信息增益</div><div class="line">    """</div><div class="line">    <span class="keyword">if</span> len(X)==<span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> DecisionTreeNode()</div><div class="line"></div><div class="line">    current_score = scoref(X)</div><div class="line">    <span class="comment"># 记录最佳拆分属性, 以及用哪个属性值</span></div><div class="line">    best_gain = <span class="number">0.0</span></div><div class="line">    best_criteria = <span class="keyword">None</span> <span class="comment"># 拆分用的属性和属性取值</span></div><div class="line">    best_sets = <span class="keyword">None</span> <span class="comment"># 拆分后的两个数据子集</span></div><div class="line"></div><div class="line">    feature_nums = X.shape[<span class="number">1</span>] - <span class="number">1</span></div><div class="line">    <span class="comment"># 遍历每一个特征以及每个特征的每一个取值来构建树，复杂度很高, 可以用特征的中位数</span></div><div class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> range(feature_nums):</div><div class="line">    <span class="comment"># 在当前列中生成一个由不同值构成的序列</span></div><div class="line">        column_values = &#123;&#125; <span class="comment">#记录数据集中第col个特征，每个不同取值的个数</span></div><div class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> X:</div><div class="line">            column_values[row[col]] = <span class="number">1</span> <span class="comment"># 初始化</span></div><div class="line"></div><div class="line">        <span class="comment"># 根据当前列的特征每个取值， 尝试对数据集进行分割</span></div><div class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> column_values:</div><div class="line">            set1, set2 = divideSet(X, col, value)</div><div class="line"></div><div class="line">            <span class="comment"># 信息增益</span></div><div class="line">            p = float(len(set1)) / len(X)</div><div class="line">            gain = current_score - p*scoref(set1) - (<span class="number">1</span>-p)*scoref(set2)</div><div class="line">            <span class="keyword">if</span> gain &gt; best_gain <span class="keyword">and</span> len(set1) &gt;<span class="number">0</span> <span class="keyword">and</span> len(set2) &gt;<span class="number">0</span> :</div><div class="line">                best_gain = gain</div><div class="line">                best_criteria = (col, value)</div><div class="line">                best_sets = (set1, set2)</div><div class="line"></div><div class="line">    <span class="comment"># 创建子分之</span></div><div class="line">    <span class="keyword">if</span> best_gain &gt; <span class="number">0</span>:</div><div class="line">        trueBranch = buildTree(best_sets[<span class="number">0</span>])</div><div class="line">        falseBranch = buildTree(best_sets[<span class="number">1</span>])</div><div class="line">        <span class="keyword">return</span> DecisionTreeNode(col=best_criteria[<span class="number">0</span>], value=best_criteria[<span class="number">1</span>],</div><div class="line">                                    tb = trueBranch, fb=falseBranch)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> DecisionTreeNode(results=uniqueCounts(X))</div></pre></td></tr></table></figure></p>
+<h1 id="Gradient-Boosting"><a href="#Gradient-Boosting" class="headerlink" title="Gradient Boosting"></a>Gradient Boosting</h1><p>经常参加数据挖掘比赛(Kaggle、天池)的同学肯定对XGBoost、GBDT如雷贯耳，特别是XGBoost，简直堪称DM居家必备之神器。马克思老人家说过，透过现象看本质。XGBoost之所以这么吊，除了牛叉的代码实现，也和她的算法原理, Gradient Boosting, 有直接联系。下面我们就开启Gradient Boosting入门之旅吧。</p>
+<p>Gradient Boosting, 又被称为Gradient Boosting Decision Tree(GBDT)、Gradient Boosting Machines(GBMs) 或者 Gradient Boosted Trees(GBT), 虽然别名很多，但只要看到<strong>gradient</strong>和<strong>boost</strong>这两个词，就能确定指的就是本文的Gradient Boosting.</p>
+<p>Gradient Boosting除了名字多以外，她的应用范围也很广，可直接应用于分类(Classification)、回归(Regression)和排序(Ranking)。</p>
+<h2 id="残差和梯度"><a href="#残差和梯度" class="headerlink" title="残差和梯度"></a>残差和梯度</h2><p>和其他Boosting算法一样，Gradient Boosting可以记作：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/5780fc2fd9140.png" alt=""></p>
+<p>这个式子很好理解，$h_{t}(x)$是个体学习器，Gradient Boosting就是把每一个个体学习器集成到一起。</p>
+<p>前面我们提到Boosting通过串行的方式构建个体学习器，换句话说，个体学习器是按照顺序一个个构建的，比如迭代式或者递归的方式。而每一个学习器当然也不是随意创建的，比如AdaBoost每一个学习器都会重点关注上一个学习器分类错误的那些样本点，通过为每个样本赋予不同的权重实现。</p>
+<p>我们先不讲Gradient Boosting背后的原理，单就看他的名字，我当初就很疑惑，<strong>gradient</strong>? 模型集成和梯度有半毛钱关系啊？更别提GBDT里面不但有<strong>gradient</strong>还有<strong>tree</strong>，梯度和决策树是怎么搞到一起的？</p>
+<p>带着这些疑问，让我们一步步揭开Gradient Boosting的面纱。</p>
+<p>首先，来思考一个回归问题：现有训练集D={$x_i,y_i$}和一个已经在D上训练好的模型$F$, 不过$F$在D上的表现不太好，你能否按照如下规则来得到一个令人满意的模型：</p>
+<ul>
+<li>不能对$F$做改动</li>
+<li>你可以利用D单独训练决策树模型h，但是必须用F(x)+h(x)作为最终的模型</li>
+</ul>
+<p>我们希望最后的模型F+h效果如下：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/5781072c047d3.png" alt=""></p>
+<p>上面的等式等价为：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/578108a209f45.png" alt=""></p>
+<p>看到这里你会发现，对于决策树h，她的训练集实际上是{$x_i$, $y_i-F(x_i)$}！而y-F(x)在数学界是有名号的，被称作残差(residual)。 我们再回过头来看h的物理意义，她的作用其实是修正F的错误，也就是抵消F的误差。</p>
+<p>如果F+h在D上的表现还是令人不太满意。</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/57810eadb2ae4.png" alt=""></p>
+<p>我们不断构建决策树，最终会得到一个强大的模型F+$\sumh_{t}$, 这实际上就是Gradient Boosting的学习过程。</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/5781183f08ba3.png" alt=""></p>
+<p>看到这里你肯定会疑惑，这明明是 Residual Boosting！和梯度有毛线关系啊？ 且看下面的推导：</p>
+<p>假设我们要训练模型F(x), 损失函数选用平方差损失函数,</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/5781198fc70cb.png" alt=""></p>
+<p>我们想要最小化:</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/57811a1d4e830.png" alt=""></p>
+<p>由于F($x<em>{i}$)也是一个实数，我们不妨把F($x</em>{i}$)当做L的参数，如果用梯度下降算法来优化L,</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/57811a921a78e.png" alt=""></p>
+<p>仔细看梯度，竟然和残差有直接的联系：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/57811ad08b752.png" alt=""></p>
+<p><img src="https://ooo.0o0.ooo/2016/07/09/57811b5a8b413.png" alt=""></p>
+<p>现在，我们可以用梯度下降的思想来解释损失函数为平方差时，Gradient Boosting的学习过程：</p>
+<ul>
+<li>1 构建初始学习器F, 比如$y_{i}$的平均值</li>
+<li>2 计算平方差损失函数的梯度g</li>
+<li>3 用(x,-g) 训练决策树h</li>
+<li>4 F = F + 1*h</li>
+<li>5 如果决策树个数达到阈值，结束；否则，跳转到第2步</li>
+</ul>
+<p>Gradient Boosting可不是仅能用平方差损失函数哦，以sklearn为例，用于回归的GradientBoostingRegressor支持least square loss、least absolute loss、hubor loss和quantile loss；用于分类的GradientBoostingClassificier支持logistic regression和exponential loss。</p>
+<p>我们可以把梯度看做残差的泛化形式，则任何函数都可以作为Gradient Boosting的损失函数！只要你能提供她的梯度！这也是XGBoost支持自定义损失函数的原理基础。</p>
+<p>所以，Gradient Boosting的学习过程：</p>
+<ul>
+<li>1 构建初始学习器F, 比如$y_{i}$的平均值</li>
+<li>2 计算损失函数的梯度g</li>
+<li>3 用(x,-g) 训练决策树h</li>
+<li>4 F = F + $\rho$ h, $\rho$为学习率</li>
+<li>5 如果决策树个数达到阈值，结束；否则，跳转到第2步</li>
+</ul>
+<h2 id="过拟合与正则化"><a href="#过拟合与正则化" class="headerlink" title="过拟合与正则化"></a>过拟合与正则化</h2><p>随着Gradient Boosting中决策树个数的增加，通常你会发现在训练集D上的效果越来越好，如果是二分类问题，甚至可能准确率接近100%，此时就要注意了，很可能产生了过拟合(overfitting)现象。任何一个能实际应用的模型，都必然会考虑到过拟合现象，我们来看一下Gradient Boosting如何减弱过拟合。</p>
+<h3 id="子采样-subsampling"><a href="#子采样-subsampling" class="headerlink" title="子采样(subsampling)"></a>子采样(subsampling)</h3><p>一个模型如果在训练集上表现很好，在测试集上表现远不如训练集，我们就认为这个模型陷入了过拟合。她把训练集中存在的噪声错误地归类为数据的普遍性规律，怎么样降低噪声对模型的干扰呢？如果我们把噪声看做数据集中的异常点，在训练模型的时候，我们引入随机性因素，比如从训练集中随机抽取样本来训练模型，无疑会减弱异常点的干扰。这就是子采样的思想。</p>
+<p>在每一次构建新的决策树之前，先从训练集中随机抽取部分样本构建一个新的训练集$D_t$，然后利用$D_t$训练决策树。</p>
+<p>sklearn的GradientBoostingRegressor和GradientBoostingClassifier提供了<em>subsample</em>参数进行子采样。</p>
+<h2 id="收缩-shrinkage"><a href="#收缩-shrinkage" class="headerlink" title="收缩(shrinkage)"></a>收缩(shrinkage)</h2><p>Shrinkage也是常用的减弱过拟合的手段之一，在Gradient Boosting中，shrinkage用于降低每一个个体学习器的影响，在sklearn中，shrinkage就是我们通常见到的学习率, 即，GradientBoostingRegressor和GradientBoostingClassifier中的<em>learning_rate</em>参数。</p>
+<p>这里多说一句，原始的Gradient Boosting算法在每一次学习到个体学习器后，还要学习一个参数叫做步长(step length)的参数，步长和shrinkage是两个参数，不要搞混，但是在sklearn的实现中，并没有考虑步长，直接用学习率代替了shrinkage.</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/5781dd36047cc.png" alt=""></p>
+<p>用来减弱过拟合的方法有很多，比如还有early stopping, GradientBoostingRegressor和GradientBoostingClassifier还提供了$monitor$参数, 可以用于early stopping。</p>
+<h2 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h2><p>Gradient Boosting的开源实现有很多，但目前最流行最好用的肯定是XGBoost。 XGBoost之所以这么好用，一部分原因是陈天奇等人强大的编码能力和优秀的系统设计，另一方面也是因为她对传统Gradient Boosting在算法层面做出了诸多改进。本文不涉及并行化和系统设计的内容， 我仅谈一下XGBoost在算法层面的改进之处。</p>
+<h3 id="带有正则项的目标函数"><a href="#带有正则项的目标函数" class="headerlink" title="带有正则项的目标函数"></a>带有正则项的目标函数</h3><p>大部分机器学习算法的学习过程可以转换成一个优化问题，目标函数=损失函数＋正则项。而传统的Gradient Boosting是不包含正则项的，所以，XGBoost做出的第一项改进就是修改目标函数，增加如下的正则项：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/5782491de52e2.png" alt=""></p>
+<p>这个正则项量化了每一颗CART树的复杂度， 其中T是CART树$f_t$的叶子节点数目，$w$是叶子节点的权重。 看一个简单的例子：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/57824a2f82ac7.png" alt=""></p>
+<h3 id="目标函数的近似"><a href="#目标函数的近似" class="headerlink" title="目标函数的近似"></a>目标函数的近似</h3><p>XGBoost在对目标函数进行优化求解时，采用了近似手段，</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/57824d4276cb1.png" alt=""></p>
+<p>然后对损失函数 泰勒展开：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/57824e6e26218.png" alt=""></p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/57824eb02477f.png" alt=""></p>
+<p>进一步移除目标函数中的常量，</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/57824f3dceb90.png" alt=""></p>
+<p>上面的$f_{t}(x)$表示一颗决策树，我们能否只用叶子节点表示一棵树呢？答案是可以，但需要知道两方面的知识，一是叶子节点的权重$w$, 二是每个叶子节点的样本点(即，树的结构)，用p表示。</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/57825114a0d75.png" alt=""></p>
+<p>进一步我们按照样本点在CART树种的分布情况，可以将训练集样本分为T组，得到：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/578255aed739c.png" alt=""></p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/578255c63875d.png" alt=""></p>
+<p>上式其实是T个二次函数的和，我们知道对于单变量二次函数$ax^2+bx$，当x取值为$-b/(2a)$时，函数有极值$-b^2/(4a)$,</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/57825965551ed.png" alt=""></p>
+<p>我们可以得到每个叶子节点对应的$w$的最佳取值和函数极值:</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/578259e231824.png" alt=""></p>
+<p>看一个具体的例子：</p>
+<p><img src="https://ooo.0o0.ooo/2016/07/10/57825a4cf1231.png" alt=""></p>
+<h3 id="近似贪心算法"><a href="#近似贪心算法" class="headerlink" title="近似贪心算法"></a>近似贪心算法</h3><p>决策树分割节点时，一般使用贪心算法，并且需要遍历所有特征以及特征的每一个取值，这种做法称为精确贪心算法(exact greedy algorithm), XGBoost和sklearn一样支持这种精确贪心算法，除此之外，XGBoost还包含了陈天奇等人提出的决策树分割节点的近似算法和 针对稀疏数据的分割节点快速算法。对于近似算法，我说一下自己的错误理解:</p>
+<p>不论精确还是近似算法，都需要遍历一遍特征，近似算法的有点是不需要遍历特征的每个取值，她只遍历特征取值范围的百分位数上那些取值，那么如何取得这些百分位数值呢？可以用quantile sketch算法，事情到这里是不是就结束了呢？No，陈提到quantile sketch算法没有考虑到样本权重问题，如果数据集中的数据点是有权重的，这个算法就不适用了。于是陈等人提出了一种可以使用于带权重数据的quantile sketch算法。</p>
+<h3 id="其他优点"><a href="#其他优点" class="headerlink" title="其他优点"></a>其他优点</h3><p>前面说过，理论上Gradient Boosting的损失函数可以是任意可微函数。只要能够提供损失函数的梯度和Hessian矩阵，用户就可以自定义训练模型时的损失函数。 XGBoost也允许用户在交叉验证时自定义误差衡量标准。 也可以选择使用线性模型替代树模型，从而得到带L1+L2惩罚的线性回归或者logistic回归。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;开篇&quot;&gt;&lt;a href=&quot;#开篇&quot; class=&quot;headerlink&quot; title=&quot;开篇&quot;&gt;&lt;/a&gt;开篇&lt;/h1&gt;&lt;p&gt;虽然数据挖掘算法很多，但有过实际经验的同学肯定都知道，集成方法(ensembel method)大多数情况下都是首选。集成方法和LR、SVM
+    
+    </summary>
+    
+      <category term="math" scheme="http://ljblog.org/categories/math/"/>
+    
+    
+      <category term="机器学习" scheme="http://ljblog.org/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Gradient Boosting" scheme="http://ljblog.org/tags/Gradient-Boosting/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Bayesian Nets/Graph Model 画图工具</title>
+    <link href="http://ljblog.org/2015/09/14/Bayesian-Nets-Graph-Model-%E7%94%BB%E5%9B%BE%E5%B7%A5%E5%85%B7/"/>
+    <id>http://ljblog.org/2015/09/14/Bayesian-Nets-Graph-Model-画图工具/</id>
+    <published>2015-09-14T07:23:19.000Z</published>
+    <updated>2016-12-04T07:51:03.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这几天在赶论文deadline，由于是第一次写论文，要学的真不少:(</p>
+<p>论文和LDA有关，肯定少不了要在tex中插入LDA图模型，用什么工具画图呢？</p>
+<p>1 <a href="https://github.com/jluttine/tikz-bayesnet" target="_blank" rel="external">tikz-bayesnet</a><br>一句话介绍bayesnet: TikZ library for drawing Bayesian networks, graphical models and (directed) factor graphs in LaTeX.<br>这个也是我这次使用的,语法非常简单。</p>
+<p>bayesnet支持以下结点(node)类型:</p>
+<ul>
+<li>latent</li>
+<li>obs</li>
+<li>det</li>
+<li>const</li>
+<li>factor</li>
+<li>plate</li>
+<li>gate</li>
+</ul>
+<p>使用时一共也就7类命令:</p>
+<ul>
+<li>\factor [options] {factorname}{caption}{inputs}{outpus}</li>
+<li>\plate [options] {platename}{fitlist}{caption}</li>
+<li>\gate [options] {gatename}{fitlist}{inputs}</li>
+<li>\vgate {vgatename}{fitlist-left}{caption-left}{fitlist-right}{caption-right}{inputs}</li>
+<li>\hgate {hgatename}{fitlist-top}{caption-top}{fitlist-bottom}{caption-bottom}{inputs}</li>
+<li>\edge [options] {inputs}{outputs}</li>
+<li>\factoredge [options] {inputs}{factors}{outputs}</li>
+</ul>
+<p>看到这里，你可能会被options, caption, fitlist等各种参数绕晕，别急，我们来看一个例子，使用时非常简单滴.</p>
+<p>让我们来画一个LDA流程图.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">\documentclass[11pt]&#123;report&#125;</div><div class="line">\usepackage&#123;tikz&#125;</div><div class="line">\usetikzlibrary&#123;bayesnet&#125;</div><div class="line">\begin&#123;document&#125;</div><div class="line">    \begin&#123;figure&#125;</div><div class="line">      \centering</div><div class="line">      \tikz&#123; %</div><div class="line"></div><div class="line">		\node [latent](beta)&#123;$\beta$&#125;; %</div><div class="line">		\node [latent, right=1.1 of beta](phi)&#123;$\phi_&#123;k&#125;$&#125;; %</div><div class="line">		\node [obs, right=1.3 of phi](w) &#123;$w_&#123;m,n&#125;$&#125;; %</div><div class="line">		\node [latent, above=1.2 of w](z) &#123;$z_&#123;m,n&#125;$&#125;; %</div><div class="line">		\node [latent, above=1.2 of z](theta)&#123;$\theta_&#123;m&#125;$&#125;;</div><div class="line">		\node [latent, left=1.2 of theta](alpha)&#123;$\alpha$&#125;;</div><div class="line"></div><div class="line">		\plate [inner sep=0.2cm, xshift=-0.08cm, yshift=0.18cm]&#123;plate1&#125;&#123;(phi)&#125;&#123;$k\in[1, K]$&#125;;</div><div class="line">		\plate [inner sep=0.15cm, xshift=0.1cm, yshift=0.12cm]&#123;plate2&#125;&#123;(z)(w)&#125; &#123;$n\in[1,N_&#123;m&#125;]$&#125;;</div><div class="line"></div><div class="line">		\plate [inner sep=0.25cm, xshift=-0.02cm, yshift=0cm]&#123;plate3&#125;&#123;(theta)(plate2)&#125;&#123;$m\in[1, M]$&#125;;</div><div class="line">		</div><div class="line">		\edge &#123;alpha&#125;&#123;theta&#125;;</div><div class="line">		\edge &#123;theta&#125;&#123;z&#125;;</div><div class="line">		\edge &#123;beta&#125;&#123;phi&#125;;</div><div class="line">		\edge &#123;phi, z&#125;&#123;w&#125;;</div><div class="line">      &#125;</div><div class="line">    \end&#123;figure&#125;</div><div class="line">    \end&#123;document&#125;</div></pre></td></tr></table></figure><br><img src="https://ooo.0o0.ooo/2015/09/14/55f67a8a66685.png" alt=""><br>大概是因为使用起来实在很简单, 作者并没有提供document, 你可以仔细看看作者提供的几个examples, 相信聪明的你肯定会掌握:)</p>
+<p>2 <a href="http://daft-pgm.org/examples/weaklensing/" target="_blank" rel="external">DAFT</a></p>
+<p>一句话介绍：Render some probabilistic graphical models using matplotlib.<br>我看了下example, 使用起来也非常简单.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> rc</div><div class="line">rc(<span class="string">"font"</span>, family=<span class="string">"serif"</span>, size=<span class="number">12</span>)</div><div class="line">rc(<span class="string">"text"</span>, usetex=<span class="keyword">True</span>)</div><div class="line">rc(<span class="string">"./weaklensing.tex"</span>)</div><div class="line"></div><div class="line"><span class="keyword">import</span> daft</div><div class="line"></div><div class="line">pgm = daft.PGM([<span class="number">4.7</span>, <span class="number">2.35</span>], origin=[<span class="number">-1.35</span>, <span class="number">2.2</span>])</div><div class="line">pgm.add_node(daft.Node(<span class="string">"Omega"</span>, <span class="string">r"$\Omega$"</span>, <span class="number">-1</span>, <span class="number">4</span>))</div><div class="line">pgm.add_node(daft.Node(<span class="string">"gamma"</span>, <span class="string">r"$\gamma$"</span>, <span class="number">0</span>, <span class="number">4</span>))</div><div class="line">pgm.add_node(daft.Node(<span class="string">"obs"</span>, <span class="string">r"$\epsilon^&#123;\mathrm&#123;obs&#125;&#125;_n$"</span>, <span class="number">1</span>, <span class="number">4</span>, observed=<span class="keyword">True</span>))</div><div class="line">pgm.add_node(daft.Node(<span class="string">"alpha"</span>, <span class="string">r"$\alpha$"</span>, <span class="number">3</span>, <span class="number">4</span>))</div><div class="line">pgm.add_node(daft.Node(<span class="string">"true"</span>, <span class="string">r"$\epsilon^&#123;\mathrm&#123;true&#125;&#125;_n$"</span>, <span class="number">2</span>, <span class="number">4</span>))</div><div class="line">pgm.add_node(daft.Node(<span class="string">"sigma"</span>, <span class="string">r"$\sigma_n$"</span>, <span class="number">1</span>, <span class="number">3</span>))</div><div class="line">pgm.add_node(daft.Node(<span class="string">"Sigma"</span>, <span class="string">r"$\Sigma$"</span>, <span class="number">0</span>, <span class="number">3</span>))</div><div class="line">pgm.add_node(daft.Node(<span class="string">"x"</span>, <span class="string">r"$x_n$"</span>, <span class="number">2</span>, <span class="number">3</span>, observed=<span class="keyword">True</span>))</div><div class="line">pgm.add_plate(daft.Plate([<span class="number">0.5</span>, <span class="number">2.25</span>, <span class="number">2</span>, <span class="number">2.25</span>],</div><div class="line">        label=<span class="string">r"galaxies $n$"</span>))</div><div class="line">pgm.add_edge(<span class="string">"Omega"</span>, <span class="string">"gamma"</span>)</div><div class="line">pgm.add_edge(<span class="string">"gamma"</span>, <span class="string">"obs"</span>)</div><div class="line">pgm.add_edge(<span class="string">"alpha"</span>, <span class="string">"true"</span>)</div><div class="line">pgm.add_edge(<span class="string">"true"</span>, <span class="string">"obs"</span>)</div><div class="line">pgm.add_edge(<span class="string">"x"</span>, <span class="string">"obs"</span>)</div><div class="line">pgm.add_edge(<span class="string">"Sigma"</span>, <span class="string">"sigma"</span>)</div><div class="line">pgm.add_edge(<span class="string">"sigma"</span>, <span class="string">"obs"</span>)</div><div class="line">pgm.render()</div><div class="line">pgm.figure.savefig(<span class="string">"weaklensing.pdf"</span>)</div><div class="line">pgm.figure.savefig(<span class="string">"weaklensing.png"</span>, dpi=<span class="number">150</span>)</div></pre></td></tr></table></figure><br><img src="https://ooo.0o0.ooo/2015/09/14/55f67bc250eb7.png" alt=""><br>嗯, python果然很强大, 以后有时间玩一下.</p>
+<p>3 <a href="http://www.graphviz.org/" target="_blank" rel="external">Graphvie</a></p>
+<p>What is Graphviz? Graphviz is open source graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. It has important applications in networking, bioinformatics,  software engineering, database and web design, machine learning, and in visual interfaces for other technical domains. </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这几天在赶论文deadline，由于是第一次写论文，要学的真不少:(&lt;/p&gt;
+&lt;p&gt;论文和LDA有关，肯定少不了要在tex中插入LDA图模型，用什么工具画图呢？&lt;/p&gt;
+&lt;p&gt;1 &lt;a href=&quot;https://github.com/jluttine/tikz-bayes
+    
+    </summary>
+    
+    
+      <category term="LaTeX" scheme="http://ljblog.org/tags/LaTeX/"/>
+    
+  </entry>
+  
+</feed>
