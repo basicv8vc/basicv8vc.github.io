@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ljblog.org/"/>
-  <updated>2016-12-09T03:20:42.000Z</updated>
+  <updated>2016-12-09T03:43:17.000Z</updated>
   <id>http://ljblog.org/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://ljblog.org/2016/12/08/%E4%BD%BF%E7%94%A8pdb%E8%B0%83%E8%AF%95Pyton%E4%BB%A3%E7%A0%81/"/>
     <id>http://ljblog.org/2016/12/08/使用pdb调试Pyton代码/</id>
     <published>2016-12-08T12:20:16.000Z</published>
-    <updated>2016-12-09T03:20:42.000Z</updated>
+    <updated>2016-12-09T03:43:17.000Z</updated>
     
     <content type="html"><![CDATA[<p>一直使用PyCharm写Python，最近需要在服务器调试项目代码，Google了Python内置模块<a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="external">pdb</a>的基本用法，这里记录一下。</p>
 <p>假设项目代码是：</p>
