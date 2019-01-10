@@ -4,9 +4,9 @@
   <subtitle>Something on Programming.</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://ljblog.org/"/>
+  <link href="https://basicv8vc.github.io/"/>
   <updated>2016-12-09T03:43:17.000Z</updated>
-  <id>http://ljblog.org/</id>
+  <id>https://basicv8vc.github.io/</id>
   
   <author>
     <name>lj</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>使用pdb调试Python代码</title>
-    <link href="http://ljblog.org/2016/12/08/%E4%BD%BF%E7%94%A8pdb%E8%B0%83%E8%AF%95Pyton%E4%BB%A3%E7%A0%81/"/>
-    <id>http://ljblog.org/2016/12/08/使用pdb调试Pyton代码/</id>
+    <link href="https://basicv8vc.github.io/2016/12/08/%E4%BD%BF%E7%94%A8pdb%E8%B0%83%E8%AF%95Pyton%E4%BB%A3%E7%A0%81/"/>
+    <id>https://basicv8vc.github.io/2016/12/08/使用pdb调试Pyton代码/</id>
     <published>2016-12-08T12:20:16.000Z</published>
     <updated>2016-12-09T03:43:17.000Z</updated>
     
@@ -84,14 +84,14 @@
     </summary>
     
     
-      <category term="Python" scheme="http://ljblog.org/tags/Python/"/>
+      <category term="Python" scheme="https://basicv8vc.github.io/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title>Java内存模型</title>
-    <link href="http://ljblog.org/2016/12/04/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
-    <id>http://ljblog.org/2016/12/04/Java内存模型/</id>
+    <link href="https://basicv8vc.github.io/2016/12/04/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://basicv8vc.github.io/2016/12/04/Java内存模型/</id>
     <published>2016-12-04T08:25:35.000Z</published>
     <updated>2016-12-04T14:11:37.000Z</updated>
     
@@ -100,14 +100,14 @@
     </summary>
     
     
-      <category term="Java" scheme="http://ljblog.org/tags/Java/"/>
+      <category term="Java" scheme="https://basicv8vc.github.io/tags/Java/"/>
     
   </entry>
   
   <entry>
     <title>K-Means从入门到调包</title>
-    <link href="http://ljblog.org/2016/07/19/K-Means%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85/"/>
-    <id>http://ljblog.org/2016/07/19/K-Means从入门到调包/</id>
+    <link href="https://basicv8vc.github.io/2016/07/19/K-Means%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85/"/>
+    <id>https://basicv8vc.github.io/2016/07/19/K-Means从入门到调包/</id>
     <published>2016-07-19T03:12:58.000Z</published>
     <updated>2016-12-09T03:51:26.000Z</updated>
     
@@ -145,16 +145,16 @@
     </summary>
     
     
-      <category term="机器学习" scheme="http://ljblog.org/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://basicv8vc.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="聚类" scheme="http://ljblog.org/tags/%E8%81%9A%E7%B1%BB/"/>
+      <category term="聚类" scheme="https://basicv8vc.github.io/tags/%E8%81%9A%E7%B1%BB/"/>
     
   </entry>
   
   <entry>
     <title>Gradient Boosting 从入门到调包 (调包篇)</title>
-    <link href="http://ljblog.org/2016/07/08/Gradient-Boosting-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85-%E8%B0%83%E5%8C%85%E7%AF%87/"/>
-    <id>http://ljblog.org/2016/07/08/Gradient-Boosting-从入门到调包-调包篇/</id>
+    <link href="https://basicv8vc.github.io/2016/07/08/Gradient-Boosting-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85-%E8%B0%83%E5%8C%85%E7%AF%87/"/>
+    <id>https://basicv8vc.github.io/2016/07/08/Gradient-Boosting-从入门到调包-调包篇/</id>
     <published>2016-07-08T13:36:18.000Z</published>
     <updated>2016-12-09T03:52:33.000Z</updated>
     
@@ -174,19 +174,19 @@
     
     </summary>
     
-      <category term="math" scheme="http://ljblog.org/categories/math/"/>
+      <category term="math" scheme="https://basicv8vc.github.io/categories/math/"/>
     
     
-      <category term="机器学习" scheme="http://ljblog.org/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://basicv8vc.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="Gradient Boosting" scheme="http://ljblog.org/tags/Gradient-Boosting/"/>
+      <category term="Gradient Boosting" scheme="https://basicv8vc.github.io/tags/Gradient-Boosting/"/>
     
   </entry>
   
   <entry>
     <title>Gradient Boosting 从入门到调包 (入门篇)</title>
-    <link href="http://ljblog.org/2016/07/08/Gradient-Boosting-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85-%E5%85%A5%E9%97%A8%E7%AF%87/"/>
-    <id>http://ljblog.org/2016/07/08/Gradient-Boosting-从入门到调包-入门篇/</id>
+    <link href="https://basicv8vc.github.io/2016/07/08/Gradient-Boosting-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B0%83%E5%8C%85-%E5%85%A5%E9%97%A8%E7%AF%87/"/>
+    <id>https://basicv8vc.github.io/2016/07/08/Gradient-Boosting-从入门到调包-入门篇/</id>
     <published>2016-07-08T13:36:18.000Z</published>
     <updated>2016-12-09T03:50:56.000Z</updated>
     
@@ -308,19 +308,19 @@
     
     </summary>
     
-      <category term="math" scheme="http://ljblog.org/categories/math/"/>
+      <category term="math" scheme="https://basicv8vc.github.io/categories/math/"/>
     
     
-      <category term="机器学习" scheme="http://ljblog.org/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="机器学习" scheme="https://basicv8vc.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="Gradient Boosting" scheme="http://ljblog.org/tags/Gradient-Boosting/"/>
+      <category term="Gradient Boosting" scheme="https://basicv8vc.github.io/tags/Gradient-Boosting/"/>
     
   </entry>
   
   <entry>
     <title>Bayesian Nets/Graph Model 画图工具</title>
-    <link href="http://ljblog.org/2015/09/14/Bayesian-Nets-Graph-Model-%E7%94%BB%E5%9B%BE%E5%B7%A5%E5%85%B7/"/>
-    <id>http://ljblog.org/2015/09/14/Bayesian-Nets-Graph-Model-画图工具/</id>
+    <link href="https://basicv8vc.github.io/2015/09/14/Bayesian-Nets-Graph-Model-%E7%94%BB%E5%9B%BE%E5%B7%A5%E5%85%B7/"/>
+    <id>https://basicv8vc.github.io/2015/09/14/Bayesian-Nets-Graph-Model-画图工具/</id>
     <published>2015-09-14T07:23:19.000Z</published>
     <updated>2016-12-09T03:52:40.000Z</updated>
     
@@ -364,7 +364,7 @@
     </summary>
     
     
-      <category term="LaTeX" scheme="http://ljblog.org/tags/LaTeX/"/>
+      <category term="LaTeX" scheme="https://basicv8vc.github.io/tags/LaTeX/"/>
     
   </entry>
   
