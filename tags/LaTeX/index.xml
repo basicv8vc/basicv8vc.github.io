@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>LaTeX on Yet Another Blog</title>
+    <link>https://basicv8vc.github.io/tags/latex/</link>
+    <description>Recent content in LaTeX on Yet Another Blog</description>
+    <image>
+      <url>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 14 Sep 2015 15:23:19 +0000</lastBuildDate><atom:link href="https://basicv8vc.github.io/tags/latex/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bayesian Nets/Graph Model 画图工具</title>
+      <link>https://basicv8vc.github.io/posts/bayesian-nets-graph-model-%E7%94%BB%E5%9B%BE%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Mon, 14 Sep 2015 15:23:19 +0000</pubDate>
+      
+      <guid>https://basicv8vc.github.io/posts/bayesian-nets-graph-model-%E7%94%BB%E5%9B%BE%E5%B7%A5%E5%85%B7/</guid>
+      <description>这几天在赶论文deadline，由于是第一次写论文，要学的真不少:(
+论文和LDA有关，肯定少不了要在tex中插入LDA图模型，用什么工具画图呢？
+tikz-bayesnet 一句话介绍bayesnet: TikZ library for drawing Bayesian networks, graphical models and (directed) factor graphs in LaTeX.
+这个也是我这次使用的，语法非常简单。
+bayesnet支持以下结点(node)类型:
+ latent obs det const factor plate gate  使用时一共也就7类命令:
+ \factor [options] {factorname}{caption}{inputs}{outpus} \plate [options] {platename}{fitlist}{caption} \gate [options] {gatename}{fitlist}{inputs} \vgate {vgatename}{fitlist-left}{caption-left}{fitlist-right}{caption-right}{inputs} \hgate {hgatename}{fitlist-top}{caption-top}{fitlist-bottom}{caption-bottom}{inputs} \edge [options] {inputs}{outputs} \factoredge [options] {inputs}{factors}{outputs}  看到这里，你可能会被options, caption, fitlist等各种参数绕晕，别急，我们来看一个例子，使用时非常简单滴。
+让我们来画一个LDA流程图。
+{% codeblock lang:latex %}  \documentclass[11pt]{report} \usepackage{tikz} \usetikzlibrary{bayesnet} \begin{document}  \begin{figure}  \centering  \tikz{ % 	\node [latent](beta){$\beta$}; % 	\node [latent, right=1.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://basicv8vc.github.io/sitemap.xml

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Yet Another Blog</title>
+    <link>https://basicv8vc.github.io/tags/</link>
+    <description>Recent content in Tags on Yet Another Blog</description>
+    <image>
+      <url>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 21 Apr 2022 19:09:35 +0800</lastBuildDate><atom:link href="https://basicv8vc.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NLP</title>
+      <link>https://basicv8vc.github.io/tags/nlp/</link>
+      <pubDate>Thu, 21 Apr 2022 19:09:35 +0800</pubDate>
+      
+      <guid>https://basicv8vc.github.io/tags/nlp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>开源</title>
+      <link>https://basicv8vc.github.io/tags/%E5%BC%80%E6%BA%90/</link>
+      <pubDate>Thu, 21 Apr 2022 19:09:35 +0800</pubDate>
+      
+      <guid>https://basicv8vc.github.io/tags/%E5%BC%80%E6%BA%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>机器学习</title>
+      <link>https://basicv8vc.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Tue, 19 Jul 2016 11:12:58 +0000</pubDate>
+      
+      <guid>https://basicv8vc.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>XGBoost</title>
+      <link>https://basicv8vc.github.io/tags/xgboost/</link>
+      <pubDate>Sat, 09 Jul 2016 21:36:18 +0000</pubDate>
+      
+      <guid>https://basicv8vc.github.io/tags/xgboost/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LaTeX</title>
+      <link>https://basicv8vc.github.io/tags/latex/</link>
+      <pubDate>Mon, 14 Sep 2015 15:23:19 +0000</pubDate>
+      
+      <guid>https://basicv8vc.github.io/tags/latex/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
