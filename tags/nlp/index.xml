@@ -22,23 +22,5 @@ Clem Delangue1和Julien Chaumond2一起参加了风投机构Betaworks举办的Bo
  左边 是CTO Julien Chaumond，右边 是CEO Clem Delangue   在2017年3月9号，他们在iOS App Store正式推出了Hugging Face App，产品的界面是这样的：</description>
     </item>
     
-    <item>
-      <title>读PyTorch源码学习RNN（1）</title>
-      <link>https://basicv8vc.github.io/posts/%E8%AF%BBpytorch%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0rnn-01/</link>
-      <pubDate>Tue, 19 Dec 2017 11:12:58 +0000</pubDate>
-      
-      <guid>https://basicv8vc.github.io/posts/%E8%AF%BBpytorch%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0rnn-01/</guid>
-      <description>PyTorch中RNN的实现分两个版本：1）GPU版；2）CPU版。由于GPU版是直接调用NVIDIA cuDNN的RNN API，这里咱就略去不表，CPU版最开始使用Python实现，自v1.0.0之后改为C++，为了不让语言成为理解RNN的障碍，所以本文以最后一个Python实现版本 v0.4.1为例讲述RNN模型。
-RNN，更准确的说，torch.nn.RNN，实现的是Jeffrey Elman在1990年提出的simple recurrent neural network (SRNN)，它还有一个更为广泛的称呼：Elman network。
-RNN的隐状态计算公式如下： $$h_t = \tanh(W_{ih} * x_t + b_{ih} + W_{hh} * h_{t-1} + b_{hh})$$
-模型包含两个参数矩阵\(W_{ih}\) 、\(W_{hh}\) 以及两个bias变量\(b_{ih}\) 、\(b_{hh}\)。
-原来这就是RNN呀，虽然一提到RNN，各种论文、博客都会讲到什么sequence、递归、循环，各种绕的词汇，而本质上，RNN模型只包含这四个参数，不论序列长度是多少，只有这四个参数，果然够simple~ 所谓的训练过程就是在寻找这四个参数的最优值! (注：更严谨的说法是，对于单层单方向的RNN网络，只包含这四个参数)
-讲到这里，插三个小问题。
-  PyTorch中RNN仅支持两种激活函数：tanh和ReLU。为啥不支持sigmoid以及各种ReLU的变形呢？前面提到了，PyTorch的GPU版没有自己实现，而是直接调用了cuDNN，因为cuDNN中的RNN仅支持tanh和ReLU（cuDNN RNN Mode）。为了统一，CPU版的RNN也只支持tanh和ReLU。
-  很多博客在讲解RNN时，都会说“RNN每个时刻的输入是\(x_{t}\)和上一个时刻的隐状态\(h_{t-1}\)，输出是当前时刻隐状态\(h_{t}\)和模型输出\(y_{t}\)”。而实际上，从RNN的隐状态计算公式可以看到，RNN输出的只有\(h_{t}\)，根本没有所谓的\(y_{t}\)。很多人之所以这么说，其实是混淆了一个概念：在将RNN应用于具体任务时，比如情感分类，在得到RNN的隐状态后，通常并不会将\(h_{t}\)和类别label直接关联，而是在\(h_{t}\)后面接几层全连接网络，而全连接网络的输出才是\(y_{t}\)。so，还是要分清RNN的\(h_{t}\)和分类模型的\(y_{t}\)。
-  用过PyTorch的朋友大概都知道，对于不同的网络层，输入数据的维度虽然不同，但是通常第一维都是batch_size，比如torch.nn.Linear的输入(batch_size, *, in_features)，torch.nn.Conv2d的输入（batch_size, \(C_{in}\), \(H_{in}\), \(W_{in}\)）。而RNN的输入却是(seq_len, batch_size, input_size)，batch_size位于第二维度！虽然你可以将batch_size和序列长度seq_len对换位置，此时只需要把参数batch_first设置为True。但是默认情况下RNN输入为啥不是batch first？原因同上，因为cuDNN中RNN的API就是batch_size在第二维度！进一步，为啥cuDNN要这么做呢？举个例子，假设输入序列的长度(seq_len)是3，batch_size是2，一个batch的数据是[[&amp;ldquo;A&amp;rdquo;, &amp;ldquo;B&amp;rdquo;, &amp;ldquo;C&amp;rdquo;], [&amp;ldquo;D&amp;rdquo;, &amp;ldquo;E&amp;rdquo;, &amp;ldquo;F&amp;rdquo;]]，如图1所示。由于RNN是序列模型，只有\(t_{1}\)时刻计算完成，才能进入\(t_{2}\)时刻，而&amp;quot;batch&amp;quot;就体现在每个时刻\(t_{i}\)的计算过程中，图1中\(t_{1}\)时刻将[&amp;ldquo;A&amp;rdquo;, &amp;ldquo;D&amp;rdquo;]作为当前时刻的batch数据，\(t_{2}\)时刻将[&amp;ldquo;B&amp;rdquo;, &amp;ldquo;E&amp;rdquo;]作为当前时刻的batch数据，可想而知，&amp;ldquo;A&amp;quot;与&amp;quot;D&amp;quot;在内存中相邻比&amp;quot;A&amp;quot;与&amp;quot;B&amp;quot;相邻更合理，这样取数据时才更高效。而不论Tensor的维度是多少，在内存中都以一维数组的形式存储，batch first意味着Tensor在内存中存储时，先存储第一个sequence，再存储第二个&amp;hellip; 而如果是seq_len first，模型的输入在内存中，先存储所有sequence的第一个元素，然后是第二个元素&amp;hellip; 两种区别如图2所示，seq_len first意味着不同sequence中同一个时刻对应的输入元素(比如&amp;quot;A&amp;rdquo;, &amp;ldquo;D&amp;rdquo; )在内存中是毗邻的，这样可以快速读取数据。
-  </description>
-    </item>
-    
   </channel>
 </rss>
