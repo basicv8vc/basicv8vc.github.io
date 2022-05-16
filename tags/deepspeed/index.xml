@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DeepSpeed on Yet Another Blog</title>
+    <link>https://basicv8vc.github.io/tags/deepspeed/</link>
+    <description>Recent content in DeepSpeed on Yet Another Blog</description>
+    <image>
+      <url>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 14 May 2022 23:20:54 +0800</lastBuildDate><atom:link href="https://basicv8vc.github.io/tags/deepspeed/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DeepSpeed之ZeRO系列：将显存优化进行到底</title>
+      <link>https://basicv8vc.github.io/posts/zero/</link>
+      <pubDate>Sat, 14 May 2022 23:20:54 +0800</pubDate>
+      
+      <guid>https://basicv8vc.github.io/posts/zero/</guid>
+      <description>前言 目前训练超大规模语言模型主要有两条技术路线：TPU + XLA + TensorFlow/JAX 和 GPU + PyTorch + Megatron-LM + DeepSpeed。前者由Google主导，由于TPU和自家云平台GCP深度绑定，对于非Googler来说， 只可远观而不可把玩，后者背后则有NVIDIA、Meta、MS大厂加持，社区氛围活跃，也更受到群众欢迎。
+上面提到的DeepSpeed的核心是ZeRO(Zero Redundancy Optimizer)，简单来说，它是一种显存优化的数据并行(data parallelism, DP)方案。而“优化“这个话题又永无止境，在过去两年DeepSpeed团队发表了三篇ZeRO相关的论文，提出了去除冗余参数、引入CPU和内存、引入NVMe等方法，从始至终都围绕着一个目标：将显存优化进行到底。
+ZeRO: 一种去除冗余的数据并行方案 ZeRO: Memory Optimizations Toward Training Trillion Parameter Models 发表在SC 20，DeepSpeed项目最初就是论文中ZeRO方法的官方实现。
+背景 如今训练大模型离不开各种分布式并行策略，常用的并行策略包括：
+ 数据并行（data parallelism, DP）：假设有 \(N\) 张卡，每张卡都保存一个模型，每一次迭代（iteration/step）都将batch数据分割成 \(N\) 个等大小的micro-batch，每张卡根据拿到的micro-batch数据独立计算梯度，然后调用AllReduce计算梯度均值，每张卡再独立进行参数更新。  # https://huggingface.co/docs/transformers/parallelism#model-parallelism # 假设模型有三层：L0, L1, L2 # 每层有两个神经元 # 两张卡  GPU0: L0 | L1 | L2 ---|----|--- a0 | b0 | c0 a1 | b1 | c1  GPU1: L0 | L1 | L2 ---|----|--- a0 | b0 | c0 a1 | b1 | c1  模型并行（model parallelism/tensor parallelism, MP/TP）：有的tensor/layer很大，一张卡放不下，将tensor分割成多块，一张卡存一块。  # https://huggingface.</description>
+    </item>
+    
+  </channel>
+</rss>

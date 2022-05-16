@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Python on Yet Another Blog</title>
+    <link>https://basicv8vc.github.io/tags/python/</link>
+    <description>Recent content in Python on Yet Another Blog</description>
+    <image>
+      <url>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 08 Dec 2016 20:20:16 +0000</lastBuildDate><atom:link href="https://basicv8vc.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用pdb调试Python代码</title>
+      <link>https://basicv8vc.github.io/posts/%E4%BD%BF%E7%94%A8pdb%E8%B0%83%E8%AF%95pyton%E4%BB%A3%E7%A0%81/</link>
+      <pubDate>Thu, 08 Dec 2016 20:20:16 +0000</pubDate>
+      
+      <guid>https://basicv8vc.github.io/posts/%E4%BD%BF%E7%94%A8pdb%E8%B0%83%E8%AF%95pyton%E4%BB%A3%E7%A0%81/</guid>
+      <description>一直使用PyCharm写Python，最近需要在服务器调试项目代码，Google了Python内置模块pdb的基本用法，这里记录一下。
+假设项目代码是：
+# code.py a = &amp;#34;aaa&amp;#34; b = &amp;#34;bbb&amp;#34; c = &amp;#34;ccc&amp;#34; def combine(s1, s2): s3 = s1 + s2 + s1 s4 = s3 * 2 return s4 d = combine(a, b) final = a + b + c + d print final 开启pdb 在Python代码中使用pdb有两种方式：
+ 源文件中导入pdb模块，在需要设置断点(breakpoint)的地方添加语句:pdb.set_trace()，然后在系统终端执行 $ python code.py 在系统终端执行 $ python -m pdb code.py, 然后再使用pdb创建断点命令设置断点。  我个人更推荐第二种方式，原因是不需要修改源代码。
+pdb命令 在终端执行, $ python -m pdb code.py
+进入调试模式，首先看到-&amp;gt; a = &amp;quot;aaa&amp;quot;，它的意思是接下来要执行的语句是a = &amp;quot;aaa&amp;quot;。</description>
+    </item>
+    
+  </channel>
+</rss>
