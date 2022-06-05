@@ -9,7 +9,26 @@
       <link>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 14 May 2022 23:20:54 +0800</lastBuildDate><atom:link href="https://basicv8vc.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Jun 2022 22:50:29 +0800</lastBuildDate><atom:link href="https://basicv8vc.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>图解OneFlow中的学习率调整策略</title>
+      <link>https://basicv8vc.github.io/posts/oneflow-lrscheduler-visualization/</link>
+      <pubDate>Sun, 05 Jun 2022 22:50:29 +0800</pubDate>
+      
+      <guid>https://basicv8vc.github.io/posts/oneflow-lrscheduler-visualization/</guid>
+      <description>背景 学习率调整策略（learning rate scheduler），其实单独拎出每一个来看都不难，但是由于方法较多，上来就看文档容易一头雾水， 以OneFlow v0.7.0为例，oneflow.optim.lr_scheduler模块中就包含了14种策略。
+有没有一种更好的方法来学习呢？比如可视化出学习率的变化过程，此时，我脑海中突然浮现出Convolution arithmetic这个经典项目，作者将各种CNN卷积操作以gif形式展示，一目了然。
+ 所以，就有了这篇文章，将学习率调整策略可视化出来，下面是两个例子（ConstantLR和LinearLR）：
+  我将可视化代码分别托管在Hugging Face Spaces和Streamlit Cloud，大家可以任选一个链接访问，然后自由调节参数，感受学习率的变化过程。
+Hugging Face Space版本
+Streamlit Cloud版本
+学习率调整策略 学习率可以说是训练神经网络过程中最重要的参数（之一），目前大家都已接受用动态学习率调整策略来代替固定学习率，各种学习率调整策略层出不穷，下面我们就以OneFlow v0.7.0为例，学习下常用的几种策略。
+基类LRScheduler LRScheduler(optimizer: Optimizer, last_step: int = -1, verbose: bool = False)是所有学习率调度器的基类，初始化参数中last_step和verbose一般不需要设置，前者主要和checkpoint相关，后者则是打印当前学习率。LRScheduler中最重要的方法是step()，这个方法的作用就是修改用户设置的初始学习率，然后应用到下一次的Optimizer.step()。
+有些资料会讲LRScheduler根据epoch或iteration/step来调整学习率，两种说法都没问题，实际上，LRScheduler并不知道当前训练到第几个epoch或第几个iteration/step，只记录了调用step()的次数（last_step），如果每个epoch调用一次，那就是根据epoch来调整学习率，如果每个mini-batch 调用一次，那就是根据iteration来调整学习率，后者相对来说更常用。
+简单来说，LRScheduler根据调整策略本身、当前调用step()的次数（last_step）和用户设置的初始学习率来得到下一次梯度更新时的学习率。
+ConstantLR oneflow.optim.lr_scheduler.ConstantLR(  optimizer: Optimizer,  factor: float = 1.0 / 3,  total_iters: int = 5,  last_step: int = -1,  verbose: bool = False  ) ConstantLR和固定学习率差不多，唯一的区别是在前total_iters，学习率为初始学习率 * factor。</description>
+    </item>
+    
     <item>
       <title>DeepSpeed之ZeRO系列：将显存优化进行到底</title>
       <link>https://basicv8vc.github.io/posts/zero/</link>
