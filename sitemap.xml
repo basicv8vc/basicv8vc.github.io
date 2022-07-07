@@ -3,13 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://basicv8vc.github.io/posts/</loc>
-    <lastmod>2022-06-05T22:50:29+08:00</lastmod>
+    <lastmod>2022-07-07T00:30:29+08:00</lastmod>
   </url><url>
     <loc>https://basicv8vc.github.io/tags/</loc>
-    <lastmod>2022-06-05T22:50:29+08:00</lastmod>
+    <lastmod>2022-07-07T00:30:29+08:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/tags/tpu/</loc>
+    <lastmod>2022-07-07T00:30:29+08:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/tags/trc/</loc>
+    <lastmod>2022-07-07T00:30:29+08:00</lastmod>
   </url><url>
     <loc>https://basicv8vc.github.io/</loc>
-    <lastmod>2022-06-05T22:50:29+08:00</lastmod>
+    <lastmod>2022-07-07T00:30:29+08:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/posts/trc-program/</loc>
+    <lastmod>2022-07-07T00:30:29+08:00</lastmod>
   </url><url>
     <loc>https://basicv8vc.github.io/posts/oneflow-lrscheduler-visualization/</loc>
     <lastmod>2022-06-05T22:50:29+08:00</lastmod>

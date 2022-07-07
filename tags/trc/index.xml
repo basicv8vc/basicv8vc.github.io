@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>TRC on Yet Another Blog</title>
+    <link>https://basicv8vc.github.io/tags/trc/</link>
+    <description>Recent content in TRC on Yet Another Blog</description>
+    <image>
+      <url>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 07 Jul 2022 00:30:29 +0800</lastBuildDate><atom:link href="https://basicv8vc.github.io/tags/trc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何申请Google TRC项目，领取免费的Cloud TPU计算资源</title>
+      <link>https://basicv8vc.github.io/posts/trc-program/</link>
+      <pubDate>Thu, 07 Jul 2022 00:30:29 +0800</pubDate>
+      
+      <guid>https://basicv8vc.github.io/posts/trc-program/</guid>
+      <description>背景 当下，深度学习要想搞的好，算力、数据和模型哪一样都少不了。后两者相对来说比较容易解决，各种模型开源实现和公开数据集还是挺充足的，但是算力≈金钱，有时候脑海中蹦出来一些新鲜idea，可是看着手里的老旧显卡，只能在夜晚暗自神伤
+ 额，画风好像有点不对，但是大概就是这么个意思   一种方法是租显卡，比如某A、某B或者某C，如果是个人使用，不必像公司做项目那样顾虑太多，可以挑一些小公司的产品，有的还是挺便宜的。
+另一种就是找免费的计算资源了
+ 比如Google Colab或者Kaggle，以及今天要介绍的Google Research的TPU Research Cloud (TRC)项目。
+TRC项目  TRC项目中的T，指的是Google自家的加速卡TPU，和GPU不同，Google并不公开出售TPU设备，而是集成在Google Cloud中，提供挂载了TPU的云计算服务。
+TRC项目就是Google免费赠送给我们一段时间的TPU服务器，比如这是我申请成功后的结果，5台Cloud TPU v2-8和5台Cloud TPU v3-8，以及100台抢占式的Cloud TPU v2-8。免费使用时间是60天。
+ 随便看一下其中一台的配置，
+ CPU 96核，内存335GB，而且还挂载了TPU v2-8或者v3-8。我只能说，
+ Cloud TPU TPU是Google推出的专用于机器学习的加速设备，可以类比NVIDIA的GPU，目前TPU已经更新到了第四代，也就是TPU v4，TRC项目提供的是前两代，TPU v2和TPU v3，对于大部分场景已经绰绰有余了。
+简单说一下TPU，每块TPU上面有4块芯片（chip），每块芯片有两个核（core），所以这就是为什么叫做v2-8/v3-8，以v3为例，每个核有2个独立的矩阵计算单元（Matrix Multiply Unit, MXU）、1个向量处理单元（Vector Processing Unit, VPU）以及1个标量单元，每块芯片有32GB的高速存储（HBM）。
+   所以，可以把v3-8简单理解为就是8张GPU卡。
+除此之外，还有算力恐怖的TPU Pod，也就是几百上千块TPU组成的算力单元，当然，这个并没有免费开放给所有人。
+TRC申请 由于Cloud TPU是以Google Cloud中的一种服务提供出来，所以先要有一个Google Cloud账号，然后再申请TRC项目。
+Google Cloud开通 Google Cloud申请流程，网上有很多资料，这里就不细讲了，必要条件是有一个gmail邮箱、一个手机号以及一张支持VISA或MasterCard的信用卡。
+// 貌似这一步是最难的:(
+注册成功后，Google Cloud会赠送300$，有效期90天。
+TRC申请 如果你开通了Google Cloud，接下来就可以申请TRC项目了，申请流程非常简单，就是填写一个小问卷：
+   问题很简单，如实填写就行了，貌似就没有被拒的:)</description>
+    </item>
+    
+  </channel>
+</rss>
