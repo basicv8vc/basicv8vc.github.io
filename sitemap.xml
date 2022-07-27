@@ -2,22 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://basicv8vc.github.io/tags/jax/</loc>
+    <lastmod>2022-07-26T23:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/tags/pmap/</loc>
+    <lastmod>2022-07-26T23:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/posts/</loc>
+    <lastmod>2022-07-26T23:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/tags/</loc>
+    <lastmod>2022-07-26T23:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/</loc>
+    <lastmod>2022-07-26T23:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2022-07-26T23:17:00+00:00</lastmod>
+  </url><url>
+    <loc>https://basicv8vc.github.io/posts/jax-tutorials-for-pytorchers-3/</loc>
+    <lastmod>2022-07-26T23:17:00+00:00</lastmod>
+  </url><url>
     <loc>https://basicv8vc.github.io/tags/flax/</loc>
     <lastmod>2022-07-23T00:07:00+00:00</lastmod>
   </url><url>
-    <loc>https://basicv8vc.github.io/tags/jax/</loc>
-    <lastmod>2022-07-23T00:07:00+00:00</lastmod>
-  </url><url>
-    <loc>https://basicv8vc.github.io/posts/</loc>
-    <lastmod>2022-07-23T00:07:00+00:00</lastmod>
-  </url><url>
-    <loc>https://basicv8vc.github.io/tags/</loc>
-    <lastmod>2022-07-23T00:07:00+00:00</lastmod>
-  </url><url>
     <loc>https://basicv8vc.github.io/tags/tpu/</loc>
-    <lastmod>2022-07-23T00:07:00+00:00</lastmod>
-  </url><url>
-    <loc>https://basicv8vc.github.io/</loc>
     <lastmod>2022-07-23T00:07:00+00:00</lastmod>
   </url><url>
     <loc>https://basicv8vc.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
