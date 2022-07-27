@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>NLP on Yet Another Blog</title>
-    <link>https://basicv8vc.github.io/tags/nlp/</link>
-    <description>Recent content in NLP on Yet Another Blog</description>
+    <title>对比学习 on Yet Another Blog</title>
+    <link>https://basicv8vc.github.io/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/</link>
+    <description>Recent content in 对比学习 on Yet Another Blog</description>
     <image>
       <url>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://basicv8vc.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 16 Jul 2022 01:55:00 +0000</lastBuildDate><atom:link href="https://basicv8vc.github.io/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Jul 2022 01:55:00 +0000</lastBuildDate><atom:link href="https://basicv8vc.github.io/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Sentence-BERT: 如何通过对比学习得到更好的句子向量表示</title>
       <link>https://basicv8vc.github.io/posts/sentence-bert/</link>
@@ -26,18 +26,6 @@ Introduction 句子的向量表示，也就是sentence embedding，是利用神�
 \( N \) 个句子两两组合，有多少种情况？ \( \frac{N\cdot (N-1)}{2} \)
  如果\( N = 10\)，结果是45 如果\( N = 100\)，结果是4950 如果\( N = 1000\)，结果是49995000 &amp;hellip;&amp;hellip;  实际的业务场景中，几十万上百万的句子都算少的，好家伙，这计算量着实有点难顶啊。
  can you 顶得住？   还是让我们回到sentence embedding这个更泛化的问题上来，如果现在有一个NBERT模型，能够得到高质量的句子向量表示，那么面对STS任务，我们就可以先将&amp;quot;sentence 1&amp;quot;作为BERT输入，得到向量&amp;quot;vector 1&amp;quot;，再将&amp;quot;sentence 2&amp;quot;作为BERT输入，得到向量&amp;quot;vector 2&amp;quot;，然后计算两个向量之间的相似度。</description>
-    </item>
-    
-    <item>
-      <title>Hugging Face🤗 : NLP明星创业公司是如何炼成的</title>
-      <link>https://basicv8vc.github.io/posts/huggingface/</link>
-      <pubDate>Thu, 21 Apr 2022 19:09:35 +0800</pubDate>
-      
-      <guid>https://basicv8vc.github.io/posts/huggingface/</guid>
-      <description>2016年，两位法国人怀揣着对聊天机器人(chatbot)行业未来的美好向往，创立了Hugging Face 🤗，次年推出了一款和公司同名的机器人聊天App。最初，他们只是想为无聊的年轻人提供一个打发时间的地方，&amp;quot;Its entire purpose is to be fun&amp;quot; 可是不论是从技术难度还是商业模式上看，在2016年的时间点选择做开放领域的闲聊机器人，都不是一个明智选择。 时间来到了2018年10月29号，这一天公司首席科学家Thomas Wolf在GitHub上创建了一个名为pytorch-pretrained-BERT的项目，提交了第一个commit，这个项目最初的目的是如此简单，将Google基于tensorflow实现的BERT模型用pytorch进行了重写，并且可以加载Google公开的模型参数。但是，项目的火热程度超出了所有人的预期，Hugging Face也在开源模式中一路高歌猛进，顺利完成了公司转型，成为了当下NLP领域最火的创业公司（之一）。
-入局聊天机器人 现在当你打开Hugging Face的官网，映入眼帘的都是&amp;quot;AI community&amp;quot;、&amp;ldquo;SOTA models&amp;rdquo;、&amp;ldquo;Open Source&amp;quot;等词汇，或许很多人都不知道，这曾经是一家做聊天机器人(chatbot)的公司，而且做的还是开放领域(open domain)的闲聊机器人，对，就是类似微软小冰，让我们把时间线拨回2016年。
-Clem Delangue1和Julien Chaumond2一起参加了风投机构Betaworks举办的Botcamp加速器项目，专门为聊天机器人创业公司提供指导，在此期间（或者更早？）他们俩创立了Hugging Face3，研发一款为青少年打发时间找点乐子的陪聊型机器人，不论是公司名字（来自于emoji表情）还是产品，画风都既不商业(Enterprise)也不严肃，从这段时间的PR来看，他们坚信AI friend是大有未来的，We really have this vision where we think everyone will have an AI friend and everyone will discuss things every day with Hugging Face, so that’s really what we’re focused on right now and for the next few years4
- 左边 是CTO Julien Chaumond，右边 是CEO Clem Delangue   在2017年3月9号，他们在iOS App Store正式推出了Hugging Face App，产品的界面是这样的：</description>
     </item>
     
   </channel>

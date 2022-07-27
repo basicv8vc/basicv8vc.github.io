@@ -54,6 +54,24 @@ from jax import numpy as jnp Autograd 这里的Autograd是哈佛大学HIPS实验
     </item>
     
     <item>
+      <title>Sentence-BERT: 如何通过对比学习得到更好的句子向量表示</title>
+      <link>https://basicv8vc.github.io/posts/sentence-bert/</link>
+      <pubDate>Sat, 16 Jul 2022 01:55:00 +0000</pubDate>
+      
+      <guid>https://basicv8vc.github.io/posts/sentence-bert/</guid>
+      <description>背景 Sentence-BERT是对句子进行向量表示的一项经典工作，论文延伸出来的sentence-transformers 项目，在GitHub上已经收获了8.1k个star，今天重读下论文。
+Introduction 句子的向量表示，也就是sentence embedding，是利用神经网络对句子进行编码，得到的固定长度向量，我们希望这个向量包含了句子的”语义信息“：
+ 句子向量表示   句子向量可以应用于NLP领域的方方面面，我们暂时将目光聚焦到文本语义相似度检测 (semantic textual similarity, STS )任务上：给定两个句子，判断两个句子在语义层面的相似程度，相似程度可以是连续值([0, 1])也可以是离散值 (0-5)。
+前BERT时代有不少出彩的工作，咱们就先略去不表了，直接看BERT是怎么做的，本身BERT模型的输入就包含两个序列，所以天然适合处理STS任务，将两个句子拼接：
+[CLS] sentence 1 [SEP] sentence 2 [SEP] 直接作为BERT的输入，然后取最后一层的[CLS]向量或者所有token向量的mean/max啥的，再接一个简单的MLP即可。剩下的就是找个数据集进行fine-tune吧。
+我们将这种方式称为&amp;quot;Cross-Encoder&amp;quot;，因为两个句子的token可以交互，有利于学习到句子对之间的相似性。
+如果你的的任务也像STS这样，句子对(sentence pair)的关系已经固定了，只需要判断句子对的关系（比如相似程度），那么Cross-Encoder非常适合你，但是，如果你的任务是从\( N \)个句子中找出最相似的两个句子，或者找出和句子\( q \)最相似的句子，那么Cross-Encoder就面临一个计算量的问题。
+\( N \) 个句子两两组合，有多少种情况？ \( \frac{N\cdot (N-1)}{2} \)
+ 如果\( N = 10\)，结果是45 如果\( N = 100\)，结果是4950 如果\( N = 1000\)，结果是49995000 &amp;hellip;&amp;hellip;  实际的业务场景中，几十万上百万的句子都算少的，好家伙，这计算量着实有点难顶啊。
+ can you 顶得住？   还是让我们回到sentence embedding这个更泛化的问题上来，如果现在有一个NBERT模型，能够得到高质量的句子向量表示，那么面对STS任务，我们就可以先将&amp;quot;sentence 1&amp;quot;作为BERT输入，得到向量&amp;quot;vector 1&amp;quot;，再将&amp;quot;sentence 2&amp;quot;作为BERT输入，得到向量&amp;quot;vector 2&amp;quot;，然后计算两个向量之间的相似度。</description>
+    </item>
+    
+    <item>
       <title>如何申请Google TRC项目，领取免费的Cloud TPU计算资源</title>
       <link>https://basicv8vc.github.io/posts/trc-program/</link>
       <pubDate>Thu, 07 Jul 2022 00:30:29 +0800</pubDate>
